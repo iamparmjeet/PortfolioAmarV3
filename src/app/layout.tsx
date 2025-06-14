@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { Analytics } from "@vercel/analytics/next";
-import localFont from "next/font/local";
+import { DM_Serif_Display, Inter } from "next/font/google";
 
 import "./globals.css";
 
@@ -10,15 +10,18 @@ import Footer from "@/components/footer/footer";
 import NavHeader from "@/components/header/header";
 import { Toaster } from "@/components/ui/sonner";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+const dm_serif = DM_Serif_Display({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-dm-serif",
+  display: "swap",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -32,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${dm_serif.variable}`}>
       <head>
         <meta property="og:title" content="Amar Editz" />
         <meta property="og:type" content="website" />
@@ -45,7 +48,7 @@ export default function RootLayout({
         <meta property="instagram:url" content="https://www.instagram.com/amarjeetmishra001/" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased [perspective::1000px] [transform-style:preserve-3d] flex flex-col mx-auto bg-stone-900 overflow-x-hidden w-full relative`}
+        className="antialiased [perspective::1000px] [transform-style:preserve-3d] flex flex-col mx-auto bg-stone-900 overflow-x-hidden w-full relative"
       >
         {/* <GridBackground /> */}
         <DotBackground />

@@ -1,8 +1,29 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@theme {
+  --font-serif: var(--font-dm-serif), serif;
+  --font-sans: var(--font-inter), sans-serif;
+}
+
 @theme inline {
   --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
+}
+@layer base {
+  body {
+    @apply font-sans;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif;
+  }
+  p {
+    @apply font-sans;
+  }
 }
 
 @keyframes spotlight {

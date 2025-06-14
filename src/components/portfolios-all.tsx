@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 type PortfolioSectionWithFilterProps = {
   Items?: number;
   PortfoliosItems: PortfolioItem[];
-  withFilter?: boolean
+  withFilter?: boolean;
 };
 
 export default function PortfolioSectionWithFilter({ Items, PortfoliosItems, withFilter = true }: PortfolioSectionWithFilterProps) {
@@ -39,11 +39,11 @@ export default function PortfolioSectionWithFilter({ Items, PortfoliosItems, wit
     <div className="space-y-8 w-full">
       {/* Filter Buttons */}
       { withFilter && (
-          <FilterBtnSection
-            activeCategory={activeCategory} setActiveCategory={setActiveCategory}
-          />
-        )
-      }
+        <FilterBtnSection
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+        />
+      )}
 
       {/* Portfolio Grid */}
       <PortfolioItemsGrid currentItems={currentItems} />
@@ -58,7 +58,7 @@ export default function PortfolioSectionWithFilter({ Items, PortfoliosItems, wit
 type FilterBtnSectionProps = {
   setActiveCategory: (category: string) => void;
   activeCategory: string;
-}
+};
 
 function FilterBtnSection({ setActiveCategory, activeCategory }: FilterBtnSectionProps) {
   return (
@@ -78,7 +78,7 @@ function FilterBtnSection({ setActiveCategory, activeCategory }: FilterBtnSectio
         </Button>
       ))}
     </div>
-  )
+  );
 };
 
 type PortfolioItemsGridProps = {
@@ -122,5 +122,5 @@ function PortfolioItemsGrid({ currentItems }: PortfolioItemsGridProps) {
         </div>
       ))}
     </div>
-  )
+  );
 }
