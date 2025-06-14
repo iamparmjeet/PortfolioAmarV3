@@ -1,0 +1,35 @@
+### Building Portfolio Site v3
+
+- [x] Header & Footer
+  - [x] Header Desktop
+  - [x] Header Mobile
+  - [x] Footer Desktop
+  - [x] Footer Mobile
+- [ ] Home Page
+  - [ ] Desktop Version
+  - [ ] Mobile Version
+  - [x] Hero
+  - [x] Services
+  - [x] Portfolios
+    - [ ] Seperate Portfolios section for home
+    - [ ] Mobile Video Fix
+    - [ ] Blur image and backup image to the video
+    - [ ] New Videos to the home as well as the work page
+  - [x] Reviews
+    - [ ] Real Data pending
+  - [ ] Contacts
+- [ ] About Page
+  - [ ] Desktop Version
+  - [ ] Mobile Version
+- [ ] Portfolio Page
+  - [x] Desktop Version
+  - [x] Mobile Version
+  - [ ] Card Design
+  - [x] Fetching Data from Cloudinary
+  - [x] CDN added
+- Contact Us page
+  - [ ] Desktop
+  - [ ] Mobile
+  - [ ] Form
+  - [ ] Adding Resend API
+  - [ ] Adding Toaster
