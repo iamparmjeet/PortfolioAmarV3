@@ -48,13 +48,12 @@ export default function RootLayout({
         <meta property="instagram:url" content="https://www.instagram.com/amarjeetmishra001/" />
       </head>
       <body
-        className="antialiased [perspective::1000px] [transform-style:preserve-3d] flex flex-col mx-auto bg-stone-900 overflow-x-hidden w-full relative"
+        className="antialiased [perspective::1000px] [transform-style:preserve-3d] flex flex-col mx-auto bg-black overflow-x-hidden w-full relative"
       >
         {/* <GridBackground /> */}
         <DotBackground />
         <NavHeader />
-        <main className="min-h-screen flex-grow container  md:mx-auto z-30 relative ">
-
+        <main className="min-h-screen flex-grow  md:mx-auto z-30 relative container">
           {children}
           <Footer />
         </main>

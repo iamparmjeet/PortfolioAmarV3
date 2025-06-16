@@ -1,6 +1,10 @@
 "use client";
 
+import { IconAsterisk, IconMessage2Heart } from "@tabler/icons-react";
+import Image from "next/image";
+
 import Container from "@/components/container";
+import { URL } from "@/lib/data";
 
 // By using JSX directly in the array, you gain more control over formatting.
 const content = [
@@ -43,23 +47,125 @@ const content = [
 ];
 
 const highlights = [
-  "🎥 Self-taught Video Editor & Shooter",
-  "🎯 Specializing in Insta Reels, Podcasts, Product & Model Shoots",
-  "🤝 Worked with dentists, skincare brands, real estate & more",
-  "💡 Turning ideas into visuals that connect & convert",
+  {
+    key: "1",
+    heading: "Years of experience",
+    number: "4+",
+    text: "🎥 Self-taught Video Editor & Shooter",
+  },
+  {
+    key: "2",
+    heading: "Awards Won",
+    number: "5+",
+    text: "🎯 Specializing in Insta Reels, Podcasts, Product & Model Shoots",
+  },
+  {
+    key: "3",
+    heading: "Satisfied Customers",
+    number: "200+",
+    text: "🤝 We believe in building relationships with our clients.",
+  },
+  {
+    key: "4",
+    heading: "Completed Projects",
+    number: "200+",
+    text: "💡 Turning ideas into visuals that connect & convert",
+  },
 ];
 
 export default function AboutPage() {
   return (
-    <Container className="flex-col">
+    <Container className="flex-col gap-16">
+      {/* Section1 - PTB */}
       <section className="flex flex-col items-center">
-        <p className="uppercase">About us</p>
-        <h2 className="text-6xl font-medium ">
+        <p className="uppercase text-xl font-medium">About us</p>
+        <h2 className="mb-14 mt-4 text-6xl font-medium text-balance text-center leading-tight">
           We Invent, craft, and fuel content drive experiences that
-          <span>achieve more for global brands.</span>
+          <span className="block text-orange-400">achieve more for global brands.</span>
         </h2>
+        <Image
+          src="/aboutus1.webp"
+          alt="About Us"
+          width={2000}
+          height={1000}
+          className="rounded-2xl"
+        />
       </section>
-
+      {/* Section2-About */}
+      <section className="flex gap-8">
+        <div className="w-1/2">
+          <div className="relative w-[750px] h-[1000px] overflow-hidden rounded-xl border border-white/10">
+            <Image
+              src={`${URL}/amar-in-action/hero-2/hd.webp`}
+              alt="Amar"
+              width={1000}
+              height={1000}
+              className="rounded-xl absolute -top-40"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col w-1/2">
+          <h2 className="text-4xl mb-10">Amar Editz</h2>
+          {content.map(text => (
+            <p className="text-xl mb-4" key={text.key}>{text}</p>
+          ))}
+          <div>
+            <ul className="grid grid-cols-2 gap-8 mt-10">
+              {highlights.map(item => (
+                <li key={item.key} className="space-y-4">
+                  <h4 className="text-4xl">{item.number}</h4>
+                  <p className="text-3xl">{item.heading}</p>
+                  <p className="text-lg text-neutral-400">{item.text}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+      {/* Section3- Reviews */}
+      <section className="flex flex-col items-center gap-6">
+        <IconMessage2Heart className="stroke-green-400 size-10" />
+        <h2 className="text-5xl">What clients say about us</h2>
+        <div className="flex gap-8">
+          <div className="p-10 rounded-2xl bg-white/5">
+            <p className="font-medium text-xl mb-4">"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore nulla deserunt fugit hic sapiente dolorem praesentium tempora veritatis dignissimos obcaecati. Ipsa non optio cum deserunt, sint a vitae id. Saepe nulla provident distinctio quis mollitia inventore quod iste, tempora autem sit sequi dolore perferendis hic nam odit est. Reprehenderit, deleniti!"</p>
+            <div className="flex gap-4 items-center">
+              <p className="size-10 bg-gray-200 rounded-full"></p>
+              <div>
+                <p className="text-2xl font-medium">Client Name 1</p>
+                <small className="text-neutral-400">CEO At Company</small>
+              </div>
+            </div>
+          </div>
+          <div className="p-10 rounded-2xl bg-white/5">
+            <p className="font-medium text-xl mb-4">"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore nulla deserunt fugit hic sapiente dolorem praesentium tempora veritatis dignissimos obcaecati. Ipsa non optio cum deserunt, sint a vitae id. Saepe nulla provident distinctio quis mollitia inventore quod iste, tempora autem sit sequi dolore perferendis hic nam odit est. Reprehenderit, deleniti!"</p>
+            <div className="flex gap-4 items-center">
+              <p className="size-10 bg-gray-200 rounded-full"></p>
+              <div>
+                <p className="text-2xl font-medium">Client Name 1</p>
+                <small className="text-neutral-400">CEO At Company</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Section4- Moving text */}
+      <section className="bg-sky-400 p-10 w-full">
+        <div className="flex gap-10">
+          <div className="flex flex-nowrap items-center gap-4 text-4xl">
+            <IconAsterisk className="size-7 bg-black rounded-full p-1 stroke-sky-400 " />
+          <h5 className="text-black">Let's Work Together!</h5>
+          </div>
+          <div className="flex items-center gap-4 text-4xl">
+            <IconAsterisk className="size-7 bg-black rounded-full p-1 stroke-sky-400 " />
+          <h5 className="text-black">Let's Work Together!</h5>
+          </div>
+          <div className="flex items-center gap-4 text-4xl">
+            <IconAsterisk className="size-7 bg-black rounded-full p-1 stroke-sky-400 " />
+          <h5 className="text-black">Let's Work Together!</h5>
+          </div>
+        </div>
+      </section>
     </Container>
   );
 }

@@ -15,7 +15,7 @@ export default antfu({
   },
 }, {
   rules: {
-    "no-unused-vars": "off",
+    "no-unused-vars": "warn",
     "ts/no-redeclare": "off",
     "ts/consistent-type-definitions": ["warn", "type"],
     "no-console": ["warn"],

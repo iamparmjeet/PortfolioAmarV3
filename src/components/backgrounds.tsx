@@ -19,16 +19,19 @@ export function GridBackground() {
 
 export function DotBackground() {
   return (
-    <div className="absolute inset-0 min-h-screen w-full items-center justify-center bg-gradient-to-tr from-orange-500 via-purple-500 to-red-600">
+    <div className="absolute inset-0 min-h-screen w-full items-center justify-center">
       <div
         className={cn(
           "absolute inset-0",
-          "[background-size:20px_20px]",
-          "[background-image:radial-gradient(#404040_1px,transparent_1px)]",
+          "[background-size:15px_15px]", // Denser pattern
+          "[background-image:radial-gradient(#404040_0.5px,transparent_1.5px)]", // Larger dots
         )}
       />
       {/* Radial gradient for the container to give a faded look */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] bg-black/20 "></div>
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_15%,black)] bg-black/60">
+        {" "}
+        {/* Stronger fade */}
+      </div>
     </div>
   );
 }
