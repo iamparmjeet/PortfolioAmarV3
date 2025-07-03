@@ -53,7 +53,7 @@ export default function RootLayout({
         {/* <GridBackground /> */}
         <DotBackground />
         <NavHeader />
-        <main className="min-h-screen flex-grow  md:mx-auto z-30 relative container">
+        <main className="min-h-screen flex-grow z-30 relative ">
           {children}
           <Footer />
         </main>
