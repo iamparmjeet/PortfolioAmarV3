@@ -1,9 +1,10 @@
 "use client";
-
 import { IconAsterisk, IconMessage2Heart } from "@tabler/icons-react";
 import Image from "next/image";
+import { useMemo } from "react";
 
 import Container from "@/components/container";
+import { Marquee } from "@/components/marquee";
 import { URL } from "@/lib/data";
 
 // By using JSX directly in the array, you gain more control over formatting.
@@ -75,6 +76,7 @@ const highlights = [
 
 export default function AboutPage() {
   return (
+    <>
     <Container className="flex-col gap-16">
       {/* Section1 - PTB */}
       <AboutSection />
@@ -83,14 +85,18 @@ export default function AboutPage() {
       {/* Section3- Reviews */}
       <ReviewsSection />
       {/* Section4- Moving text */}
+      </Container>
       <MovingTextSection />
-    </Container>
+      <Container className="flex-col gap-16 items-center">
+        <AmarInActionGallery />
+      </Container>
+    </>
   );
 }
 
 function AboutSection() {
   return (
-    <section className="flex flex-col items-center container mx-auto">
+    <section className="flex flex-col items-center">
       <p className="uppercase text-xl font-medium">About us</p>
       <h2 className="mb-14 mt-4 text-6xl font-medium text-balance text-center leading-tight">
         We Invent, craft, and fuel content drive experiences that
@@ -109,7 +115,7 @@ function AboutSection() {
 
 function HighlightsSection() {
   return (
-    <section className="flex gap-8 container mx-auto">
+    <section className="flex gap-8">
       <div className="w-1/2">
         <div className="relative w-[750px] h-[1000px] overflow-hidden rounded-xl border border-white/10">
           <Image
@@ -124,7 +130,7 @@ function HighlightsSection() {
       <div className="flex flex-col w-1/2">
         <h2 className="text-4xl mb-10">Amar Editz</h2>
         {content.map(text => (
-          <p className="text-xl mb-4" key={text.key}>{text}</p>
+          <div className="text-xl mb-4" key={text.key}>{text}</div>
         ))}
         <div>
           <ul className="grid grid-cols-2 gap-8 mt-10">
@@ -144,7 +150,7 @@ function HighlightsSection() {
 
 function ReviewsSection() {
   return (
-    <section className="flex flex-col items-center gap-6 container mx-auto">
+    <section className="flex flex-col items-center gap-6">
       <IconMessage2Heart className="stroke-green-400 size-10" />
       <h2 className="text-5xl">What clients say about us</h2>
       <div className="flex gap-8">
@@ -174,22 +180,37 @@ function ReviewsSection() {
 }
 
 function MovingTextSection() {
+  const marqueeContentWithIcon = useMemo(
+    () => (
+      <div className="flex flex-nowrap items-center gap-10">
+        <IconAsterisk className="size-7 shrink-0 rounded-full bg-black p-1 text-sky-400" />
+        <h5 className="whitespace-nowrap text-4xl font-semibold text-black">
+          Let's Work Together!
+        </h5>
+      </div>
+    ),
+    [], // Empty dependency array: created only once
+  );
   return (
-    <section className="bg-sky-400 p-10 w-full">
-      <div className="flex gap-10">
-        <div className="flex flex-nowrap items-center gap-4 text-4xl">
-          <IconAsterisk className="size-7 bg-black rounded-full p-1 stroke-sky-400 " />
-          <h5 className="text-black">Let's Work Together!</h5>
-        </div>
-        <div className="flex items-center gap-4 text-4xl">
-          <IconAsterisk className="size-7 bg-black rounded-full p-1 stroke-sky-400 " />
-          <h5 className="text-black">Let's Work Together!</h5>
-        </div>
-        <div className="flex items-center gap-4 text-4xl">
-          <IconAsterisk className="size-7 bg-black rounded-full p-1 stroke-sky-400 " />
-          <h5 className="text-black">Let's Work Together!</h5>
-        </div>
+    <section className="bg-sky-400 p-10 mx-auto rounded-sm">
+      <div className="container mx-auto">
+        <Marquee speed={40} gap={30}>
+          {marqueeContentWithIcon}
+        </Marquee>
       </div>
     </section>
   );
+}
+
+function AmarInActionGallery() {
+  return (
+    <section className="flex flex-col items-center">
+      <p className="uppercase text-xl font-medium">About us</p>
+      <h2 className="mb-14 mt-4 text-6xl font-medium text-balance text-center leading-tight">
+        Light, camera
+        <span className="block text-orange-400">action.</span>
+      </h2>
+     
+    </section>
+  )
 }
