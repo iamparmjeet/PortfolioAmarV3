@@ -42,10 +42,10 @@
     transform: translateX(0%);
   }
   to {
-    transform: translateX(-100%);
+    transform: translateX(var(--move-distance));
   }
 }
 
-.marquee {
-  animation: marquee 40s linear infinite;
+@theme inline {
+  --animate-marquee: marquee var(--duration) linear infinite;
 }
