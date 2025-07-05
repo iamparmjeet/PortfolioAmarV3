@@ -19,8 +19,9 @@
     - [ ] Real Data pending
   - [ ] Contacts
 - [ ] About Page
-  - [ ] Desktop Version
-  - [ ] Mobile Version
+  - [x] Desktop Version
+  - [x] Mobile Version
+  - [ ] Video Section
 - [ ] Portfolio Page
   - [x] Desktop Version
   - [x] Mobile Version
