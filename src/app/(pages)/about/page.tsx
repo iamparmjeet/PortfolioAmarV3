@@ -5,6 +5,7 @@ import { useMemo } from "react";
 
 import Container from "@/components/container";
 import { Marquee } from "@/components/marquee";
+import { Card, Carousel } from "@/components/ui/cards-carousel";
 import { URL } from "@/lib/data";
 
 // By using JSX directly in the array, you gain more control over formatting.
@@ -77,14 +78,14 @@ const highlights = [
 export default function AboutPage() {
   return (
     <>
-    <Container className="flex-col gap-16">
-      {/* Section1 - PTB */}
-      <AboutSection />
-      {/* Section2-About */}
-      <HighlightsSection />
-      {/* Section3- Reviews */}
-      <ReviewsSection />
-      {/* Section4- Moving text */}
+      <Container className="flex-col gap-16">
+        {/* Section1 - PTB */}
+        <AboutSection />
+        {/* Section2-About */}
+        <HighlightsSection />
+        {/* Section3- Reviews */}
+        <ReviewsSection />
+        {/* Section4- Moving text */}
       </Container>
       <MovingTextSection />
       <Container className="flex-col gap-16 items-center">
@@ -202,7 +203,19 @@ function MovingTextSection() {
   );
 }
 
+const ImagesArray = [
+  { src: `${URL}/amar-in-action/hero-4/hd.webp` },
+  { src: `${URL}/amar-in-action/hero-5/hd.webp` },
+  { src: `${URL}/amar-in-action/hero-6/hd.webp` },
+  { src: `${URL}/amar-in-action/hero-7/hd.webp` },
+  { src: `${URL}/amar-in-action/hero-8/hd.webp` },
+  { src: `${URL}/amar-in-action/hero-9/hd.webp` },
+];
+
 function AmarInActionGallery() {
+  const cards = ImagesArray.map((card, index) => (
+    <Card key={card.src} card={card} index={index} disablePopup={true} />
+  ));
   return (
     <section className="flex flex-col items-center">
       <p className="uppercase text-xl font-medium">About us</p>
@@ -210,7 +223,9 @@ function AmarInActionGallery() {
         Light, camera
         <span className="block text-orange-400">action.</span>
       </h2>
-     
+      <div className="">
+        <Carousel items={cards} />
+      </div>
     </section>
-  )
+  );
 }
