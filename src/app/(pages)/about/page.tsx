@@ -1,10 +1,12 @@
 "use client";
-import { IconAsterisk, IconMessage2Heart } from "@tabler/icons-react";
+import { IconArrowUpRight, IconAsterisk, IconMessage2Heart } from "@tabler/icons-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useMemo } from "react";
 
 import Container from "@/components/container";
 import { Marquee } from "@/components/marquee";
+import { Button } from "@/components/ui/button";
 import { Card, Carousel } from "@/components/ui/cards-carousel";
 import { URL } from "@/lib/data";
 
@@ -90,6 +92,9 @@ export default function AboutPage() {
       <MovingTextSection />
       <Container className="flex-col gap-16 items-center">
         <AmarInActionGallery />
+        {/* {Section 5 - video} */}
+        {/* {Section 6 - Contact Box} */}
+        <ContactBox />
       </Container>
     </>
   );
@@ -99,7 +104,7 @@ function AboutSection() {
   return (
     <section className="flex flex-col items-center">
       <p className="uppercase text-xl font-medium">About us</p>
-      <h2 className="mb-14 mt-4 text-6xl font-medium text-balance text-center leading-tight">
+      <h2 className="mb-14 mt-4 text-4xl md:text-6xl font-medium text-balance text-center leading-tight">
         We Invent, craft, and fuel content drive experiences that
         <span className="block text-orange-400">achieve more for global brands.</span>
       </h2>
@@ -116,19 +121,19 @@ function AboutSection() {
 
 function HighlightsSection() {
   return (
-    <section className="flex gap-8">
-      <div className="w-1/2">
-        <div className="relative w-[750px] h-[1000px] overflow-hidden rounded-xl border border-white/10">
+    <section className="flex flex-col md:flex-row gap-8">
+      <div className="md:w-1/2">
+        <div className="relative md:w-[750px] md:h-[1000px] overflow-hidden rounded-xl border border-white/10">
           <Image
             src={`${URL}/amar-in-action/hero-2/hd.webp`}
             alt="Amar"
             width={1000}
             height={1000}
-            className="rounded-xl absolute -top-40"
+            className="rounded-xl md:absolute -top-40"
           />
         </div>
       </div>
-      <div className="flex flex-col w-1/2">
+      <div className="flex flex-col md:w-1/2">
         <h2 className="text-4xl mb-10">Amar Editz</h2>
         {content.map(text => (
           <div className="text-xl mb-4" key={text.key}>{text}</div>
@@ -154,7 +159,7 @@ function ReviewsSection() {
     <section className="flex flex-col items-center gap-6">
       <IconMessage2Heart className="stroke-green-400 size-10" />
       <h2 className="text-5xl">What clients say about us</h2>
-      <div className="flex gap-8">
+      <div className="flex flex-col md:flex-row gap-8">
         <div className="p-10 rounded-2xl bg-white/5">
           <p className="font-medium text-xl mb-4">"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore nulla deserunt fugit hic sapiente dolorem praesentium tempora veritatis dignissimos obcaecati. Ipsa non optio cum deserunt, sint a vitae id. Saepe nulla provident distinctio quis mollitia inventore quod iste, tempora autem sit sequi dolore perferendis hic nam odit est. Reprehenderit, deleniti!"</p>
           <div className="flex gap-4 items-center">
@@ -185,7 +190,7 @@ function MovingTextSection() {
     () => (
       <div className="flex flex-nowrap items-center gap-10">
         <IconAsterisk className="size-7 shrink-0 rounded-full bg-black p-1 text-sky-400" />
-        <h5 className="whitespace-nowrap text-4xl font-semibold text-black">
+        <h5 className="whitespace-nowrap text-3xl md:text-4xl font-semibold text-black">
           Let's Work Together!
         </h5>
       </div>
@@ -219,7 +224,7 @@ function AmarInActionGallery() {
   return (
     <section className="flex flex-col items-center">
       <p className="uppercase text-xl font-medium">About us</p>
-      <h2 className="mb-14 mt-4 text-6xl font-medium text-balance text-center leading-tight">
+      <h2 className="mb-14 mt-4 text-5xl md:text-6xl font-medium text-balance text-center leading-tight">
         Light, camera
         <span className="block text-orange-400">action.</span>
       </h2>
@@ -227,5 +232,27 @@ function AmarInActionGallery() {
         <Carousel items={cards} />
       </div>
     </section>
+  );
+}
+
+// Video Gallery
+
+// export to seperate file
+
+function ContactBox() {
+  return (
+    <div className="space-y-6 p-6 md:p-8 py-20 rounded-2xl w-full bg-[url('https://media.amarjeetmishra.com/images/bg1.webp')] bg-cover bg-center hover:bg-bottom transition-all ">
+      <div className="text-5xl md:text-7xl">
+        <h2>Have an Idea?</h2>
+        <h3 className="text-green-600">Let's Talk</h3>
+      </div>
+      <p className="text-xl md:text-2xl font-semibold text-pretty md:w-[39rem] ">We create experiences that fuel connections between brands and the people vital to their success.</p>
+      <Button variant="orange" asChild size="lg" className="cursor-pointer">
+        <Link href="/contact">
+          <span>Contact Us</span>
+          <IconArrowUpRight className="size-6" />
+        </Link>
+      </Button>
+    </div>
   );
 }
