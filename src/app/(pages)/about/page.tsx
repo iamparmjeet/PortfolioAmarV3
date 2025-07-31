@@ -7,10 +7,8 @@ import { useMemo } from "react";
 import Container from "@/components/container";
 import { Marquee } from "@/components/marquee";
 import { Button } from "@/components/ui/button";
-import { Card, Carousel } from "@/components/ui/cards-carousel";
 import { URL } from "@/lib/data";
 
-// By using JSX directly in the array, you gain more control over formatting.
 const content = [
   <p key="c1">
     Hey! I'm a self-taught video editor and shooter who helps brands tell
@@ -158,7 +156,7 @@ function ReviewsSection() {
   return (
     <section className="flex flex-col items-center gap-6">
       <IconMessage2Heart className="stroke-green-400 size-10" />
-      <h2 className="text-5xl">What clients say about us</h2>
+      <h2 className="text-5xl text-center">What clients say about us</h2>
       <div className="flex flex-col md:flex-row gap-8">
         <div className="p-10 rounded-2xl bg-white/5">
           <p className="font-medium text-xl mb-4">"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore nulla deserunt fugit hic sapiente dolorem praesentium tempora veritatis dignissimos obcaecati. Ipsa non optio cum deserunt, sint a vitae id. Saepe nulla provident distinctio quis mollitia inventore quod iste, tempora autem sit sequi dolore perferendis hic nam odit est. Reprehenderit, deleniti!"</p>
@@ -209,27 +207,35 @@ function MovingTextSection() {
 }
 
 const ImagesArray = [
-  { src: `${URL}/amar-in-action/hero-4/hd.webp` },
-  { src: `${URL}/amar-in-action/hero-5/hd.webp` },
-  { src: `${URL}/amar-in-action/hero-6/hd.webp` },
-  { src: `${URL}/amar-in-action/hero-7/hd.webp` },
-  { src: `${URL}/amar-in-action/hero-8/hd.webp` },
-  { src: `${URL}/amar-in-action/hero-9/hd.webp` },
+  { index: 1, src: `${URL}/amar-in-action/hero-5/hd.webp` },
+  { index: 2, src: `${URL}/amar-in-action/hero-6/hd.webp` },
+  { index: 3, src: `${URL}/amar-in-action/hero-12/hd.webp` },
+  { index: 4, src: `${URL}/amar-in-action/hero-14/hd.webp` },
+  { index: 5, src: `${URL}/amar-in-action/hero-16/hd.webp` },
+  { index: 6, src: `${URL}/amar-in-action/hero-17/hd.webp` },
 ];
 
 function AmarInActionGallery() {
-  const cards = ImagesArray.map((card, index) => (
-    <Card key={card.src} card={card} index={index} disablePopup={true} />
-  ));
   return (
     <section className="flex flex-col items-center">
       <p className="uppercase text-xl font-medium">About us</p>
-      <h2 className="mb-14 mt-4 text-5xl md:text-6xl font-medium text-balance text-center leading-tight">
+      <h2 className="mb-6 md:mb-14 mt-4 text-5xl md:text-6xl font-medium text-balance text-center leading-tight">
         Light, camera
         <span className="block text-orange-400">action.</span>
       </h2>
-      <div className="">
-        <Carousel items={cards} />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {ImagesArray.map(image => (
+          <Image
+            key={image.index}
+            src={image.src}
+            alt={`Amar in action ${image.index}`}
+            width={1000}
+            height={1000}
+            className="rounded-2xl mb-6 md:mb-8"
+            loading="lazy"
+            style={{ width: "100%", height: "auto" }}
+          />
+        ))}
       </div>
     </section>
   );
