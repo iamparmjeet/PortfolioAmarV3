@@ -96,7 +96,8 @@ export function Carousel({ items, initialScroll = 0 }: CarouselProps) {
             ))}
           </div>
         </div>
-        <div className="mr-10 flex justify-end gap-2">
+        {/* Arrows */}
+        <div className="mr-10 flex justify-center md:justify-end gap-2">
           <button type="button" onClick={scrollLeft} disabled={!canScrollLeft} className="z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50 dark:bg-neutral-800" aria-label="Scroll carousel left">
             <IconArrowNarrowLeft className="h-6 w-6 text-gray-500 dark:text-neutral-300" />
           </button>
