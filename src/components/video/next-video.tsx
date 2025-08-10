@@ -17,7 +17,7 @@ export default function NextVideo({
   return (
     <div
       className={cn(
-        "aspect-[9/16] w-full max-w-xs md:max-w-xl overflow-hidden rounded-xl shadow-lg relative",
+        "aspect-[9/16] w-full max-w-xs md:max-w-2xl overflow-hidden rounded-xl shadow-lg relative",
         className,
       )}
     >
