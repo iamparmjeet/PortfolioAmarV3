@@ -15,3 +15,34 @@ export function randomId(length = 8) {
   }
   return result;
 }
+
+export function formatUrlForDisplay(url: string | undefined | null): string {
+  if (!url) {
+    return "";
+  }
+
+  try {
+    const urlObject = new URL(url);
+    return urlObject.hostname;
+  }
+  catch (error) {
+    console.error("Invalid URL provided:", url, error);
+    return url;
+  }
+}
+
+export function FullDateAndTime() {
+  const now = new Date();
+
+  const FullDateAndTime = now.toLocaleString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric", // '2-digit' or 'numeric'
+    minute: "numeric", // '2-digit' or 'numeric'
+    second: "numeric", // '2-digit' or 'numeric'
+  // timeZoneName: 'short' // e.g., GMT+5:30
+  });
+  return FullDateAndTime;
+}

@@ -1,11 +1,22 @@
-// app/api/contact/route.ts
-import { Resend } from "resend";
+import { render } from "@react-email/render";
+import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
+import { v4 as uuidv4 } from "uuid";
 
-import { ContactFormEmailTemplate } from "@/components/contact/email-template";
+import { ConfirmationEmailTemplate, ContactFormEmailTemplate } from "@/components/contact/email-template";
 import env from "@/lib/env";
 import { formSchema } from "@/lib/types";
+import { formatUrlForDisplay } from "@/lib/utils";
 
-const resend = new Resend(env.RESEND_API_KEY);
+export const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: env.GMAIL_USER,
+    pass: env.GMAIL_APP_PASSWORD,
+  },
+});
 
 export async function POST(req: Request) {
   try {
@@ -20,32 +31,77 @@ export async function POST(req: Request) {
         { status: 400 },
       );
     }
-
     // 3️⃣ Destructure validated data
-    const { name, email, mobile, subject, message } = parsed.data;
+    const { name, email, mobile, subject, message, clientwebsite } = parsed.data;
+    const formattedWebsite = formatUrlForDisplay(clientwebsite);
 
-    // 4️⃣ Send email via Resend
-    const { data, error } = await resend.emails.send({
-      from: "Acme <onboarding@resend.dev>", // must be verified in Resend
-      to: ["delivered@resend.dev"], // your receiving email
-      subject: `New Contact Form: ${subject}`,
-      react: ContactFormEmailTemplate({
+    const emailId = uuidv4();
+    const trackingPixelUrl = `https://amarjeetmishra.com/api/track-open?id=${emailId}`;
+
+    // --- Use react-email's render function ---
+    const SubmissionHTMLContent = await render(
+      ContactFormEmailTemplate({
         name,
         email,
         mobile,
         subject,
+        clientwebsite: formattedWebsite,
+        message,
+        trackingPixel: trackingPixelUrl,
+      }),
+    );
+    // --- End of rendering ---
+
+    // 4) Send email via Nodemailer
+
+    const confirmationHTMLContent = await render(
+      ConfirmationEmailTemplate({
+        name,
+        email,
+        mobile,
+        subject,
+        clientwebsite,
         message,
       }),
-    });
+    );
 
-    if (error) {
-      return Response.json({ error }, { status: 500 });
-    }
+    // Send email to me
+    const mailOptions = {
+      from: `"amarjeetmishra.com" <${env.MY_EMAIL}>`,
+      to: env.GMAIL_USER,
+      replyTo: email,
+      subject: `New Contact Form Submission: ${subject}`,
+      html: SubmissionHTMLContent,
+      text: `Name: ${name}\nEmail: ${email}\nMobile: ${mobile}\nWebsite: ${clientwebsite}\nSubject: ${subject}\nMessage: ${message}`,
+    };
 
-    return Response.json(data);
+    // Send confirmation email to user
+    const confirmationMailOptions = {
+      from: `"amarjeetmishra.com" <${env.MY_EMAIL}>`,
+      to: email,
+      replyTo: env.MY_EMAIL,
+      subject: `Your Form Submission: ${subject}`,
+      html: confirmationHTMLContent,
+      text: `Name: ${name}\nEmail: ${email}\nMobile: ${mobile}\nWebsite: ${clientwebsite}\nSubject: ${subject}\nMessage: ${message}`,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    await transporter.sendMail(confirmationMailOptions);
+    return NextResponse.json({ messageId: info.messageId }, { status: 200 });
   }
   catch (error) {
-    console.error(error);
-    return Response.json({ error: "Internal Server Error" }, { status: 500 });
+    console.error("Error sending email:", error);
+
+    if ((error as any).code === "AUTH") {
+      return NextResponse.json({ error: "Email authentication failed. Check your Gmail credentials and App Password." }, { status: 500 });
+    }
+    else if ((error as any).code === "INVALID_LOGIN") {
+      return NextResponse.json({ error: "Invalid login. Ensure your Gmail account is correctly configured." }, { status: 500 });
+    }
+    else if ((error as any).code === "EENVELOPE") {
+      return NextResponse.json({ error: "Invalid recipient address." }, { status: 500 });
+    }
+
+    return NextResponse.json({ error: "Failed to send email. Please try again later." }, { status: 500 });
   }
 }

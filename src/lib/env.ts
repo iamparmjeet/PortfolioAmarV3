@@ -14,7 +14,9 @@ expand(config({
 
 const EnvSchema = z.object({
   NODE_ENV: z.string().default("development"),
-  RESEND_API_KEY: z.string(),
+  GMAIL_USER: z.string().email("Invalid email format for GMAIL_USER"),
+  GMAIL_APP_PASSWORD: z.string(),
+  MY_EMAIL: z.string().email("Invalid email format for MY_EMAIL"),
 });
 
 export type env = z.infer<typeof EnvSchema>;

@@ -1,5 +1,3 @@
-"use client";
-
 import { z } from "zod";
 
 export const formSchema = z.object({
@@ -14,6 +12,10 @@ export const formSchema = z.object({
     .refine(val => /^\d{10}$/.test(val), {
       message: "Mobile number must be exactly 10 digits.",
     }),
+  clientwebsite: z
+    .string()
+    .url("Invalid URL format.")
+    .optional(),
   subject: z
     .string()
     .min(2, "Subject must be at least 2 characters long."),
