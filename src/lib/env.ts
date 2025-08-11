@@ -14,12 +14,7 @@ expand(config({
 
 const EnvSchema = z.object({
   NODE_ENV: z.string().default("development"),
-  R2_TOKEN_VALUE: z.string(),
-  R2_ACCESS_KEY_ID: z.string(),
-  R2_SECRET_ACCESS_KEY: z.string(),
-  R2_ENDPOINTS_S3_CLIENTS: z.string().url(),
-  R2_BUCKET_NAME: z.string(),
-  R2_ACCOUNT_ID: z.string(),
+  RESEND_API_KEY: z.string(),
 });
 
 export type env = z.infer<typeof EnvSchema>;
