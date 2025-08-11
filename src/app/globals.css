@@ -51,12 +51,11 @@
 }
 
 .portrait-video-fit {
-  
   --object-fit: cover;
-  
+
   --media-object-fit: cover;
 }
 
 .portrait-video-fit img[slot="poster"] {
-  object-fit: cover !important; 
+  object-fit: cover !important;
 }
