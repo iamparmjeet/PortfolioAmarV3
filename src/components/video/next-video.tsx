@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 type VideoProps = {
   href: string;
-  thumbnail: string; // main thumbnail.webp
+  thumbnail: string;
   className?: string;
 };
 
@@ -17,13 +17,13 @@ export default function NextVideo({
   return (
     <div
       className={cn(
-        "aspect-[9/16] w-full max-w-xs md:max-w-2xl overflow-hidden rounded-xl shadow-lg relative",
+        "aspect-[9/16] w-full overflow-hidden rounded-xl shadow-lg relative",
         className,
       )}
     >
       <Video
         src={href}
-        className="w-full h-full object-cover"
+        className="w-full h-full portrait-video-fit"
         autoPlay={false}
         muted={false}
         controls={true}
@@ -33,9 +33,10 @@ export default function NextVideo({
           src={thumbnail}
           placeholder="blur"
           blurDataURL={thumbnail.replace("thumbnail.webp", "blur-thumbnail.webp")}
-          width={480}
-          height={855}
+          width={720}
+          height={1280}
           alt="Video thumbnail"
+          priority
         />
       </Video>
     </div>

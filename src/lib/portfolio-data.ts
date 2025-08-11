@@ -127,14 +127,14 @@ export const batch1: PortfolioItem[] = [
     type: "video",
     client: "Gold For Life",
   },
-  {
-    id: 13,
-    title: "Kid Toys",
-    category: "product",
-    thumbnail: `${URL}/assets/Videos/kid-toy/1/master.m3u8`,
-    type: "video",
-    client: "Toy Zone",
-  },
+  // {
+  //   id: 13,
+  //   title: "Kid Toys",
+  //   category: "product",
+  //   thumbnail: `${URL}/assets/Videos/kid-toy/1/master.m3u8`,
+  //   type: "video",
+  //   client: "Toy Zone",
+  // },
   {
     id: 14,
     title: "Mattress",
@@ -239,4 +239,15 @@ export const HomeItems: PortfolioItem[] = [
 export const allPortfolioItems: PortfolioItem[] = [
   ...batch1,
   ...HomeItems,
+];
+
+export const ImagesGallery = [
+  {
+    id: 1,
+    title: "Real Estate Promo",
+    category: "real-estate",
+    thumbnail: `${URL}/assets/Videos/real-estate/goldust-promo-1/master.m3u8`,
+    type: "video",
+    client: "Goldust City",
+  },
 ];

@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useMemo, useState } from "react";
 
 import type { PortfolioItem } from "@/lib/portfolio-data";
@@ -8,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import NextVideo from "@/components/video/next-video";
 import { categories as Categories } from "@/lib/portfolio-data";
 import { cn } from "@/lib/utils";
+
+import LazyLoadWrapper from "./video/lazy-load-wrapper";
 
 type PortfolioSectionWithFilterProps = {
   Items?: number;
@@ -89,37 +92,28 @@ function PortfolioItemsGrid({ currentItems }: PortfolioItemsGridProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {currentItems.map(item => (
-        <div key={item.id} className="group relative overflow-hidden rounded-lg">
-          <div className="h-[854px] object-fill relative overflow-hidden">
+        <LazyLoadWrapper
+          key={item.id}
+          className="group relative overflow-hidden rounded-lg"
+        >
+
+          <div key={item.id} className="group relative overflow-hidden rounded-lg">
             <NextVideo
               href={item.thumbnail}
               thumbnail={item.thumbnail.replace(".m3u8", ".webp")}
             />
 
-            {/* <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                {item.type === "video"
-                  ? (
-                      <Button className="w-16 h-16 rounded-full bg-gold-500 flex items-center justify-center">
-                        <IconPlayCard className="w-6 h-6 text-black" />
-                      </Button>
-                    )
-                  : (
-                      <Button className="px-4 py-2 bg-gold-500 rounded-md text-black font-medium">
-                        View Gallery
-                      </Button>
-                    )}
-              </div> */}
-          </div>
-          <div className="p-4 bg-neutral-900">
-            <h3 className="text-lg font-medium text-white">{item.title}</h3>
-            <p className="text-gold-400 text-sm">{item.client}</p>
-            <div className="mt-2 flex items-center">
-              <span className="text-xs uppercase tracking-wider bg-neutral-800 text-gray-300 px-2 py-1 rounded">
-                {item.type === "video" ? "Video" : "Photography"}
-              </span>
+            <div className="p-4 bg-neutral-900">
+              <h3 className="text-lg font-medium text-white">{item.title}</h3>
+              <p className="text-gold-400 text-sm">{item.client}</p>
+              <div className="mt-2 flex items-center">
+                <span className="text-xs uppercase tracking-wider bg-neutral-800 text-gray-300 px-2 py-1 rounded">
+                  {item.type === "video" ? "Video" : "Photography"}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
+        </LazyLoadWrapper>
       ))}
     </div>
   );
