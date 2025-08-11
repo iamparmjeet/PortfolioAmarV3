@@ -63,11 +63,7 @@ function QuickLinks() {
       <Heading title="Quick Links" />
       <ul className="space-y-4">
         {QuickLinksItems.map(item => (
-          <LinkBox
-            key={item.label}
-            href={item.href}
-            label={item.label}
-          />
+          <LinkBox key={item.label} href={item.href} label={item.label} />
         ))}
       </ul>
     </div>
@@ -82,7 +78,10 @@ type LinkBoxProps = {
 function LinkBox({ label, href }: LinkBoxProps) {
   return (
     <li>
-      <Link href={href} className="text-neutral-400 hover:text-neutral-300 transition-colors">
+      <Link
+        href={href}
+        className="text-neutral-400 hover:text-neutral-300 transition-colors"
+      >
         {label}
       </Link>
     </li>
@@ -123,12 +122,8 @@ function Services() {
       <Heading title="Services" />
       <ul className="space-y-4">
         {ServicesItems.map(item => (
-          <LinkBox
-            key={item.label}
-            href={item.href}
-            label={item.label}
-          />
-        )) }
+          <LinkBox key={item.label} href={item.href} label={item.label} />
+        ))}
       </ul>
     </div>
   );
