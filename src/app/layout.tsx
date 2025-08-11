@@ -3,9 +3,10 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { DM_Serif_Display, Inter } from "next/font/google";
 
+import { DotBackground } from "@/components/backgrounds";
+
 import "./globals.css";
 
-import { DotBackground } from "@/components/backgrounds";
 import Footer from "@/components/footer/footer";
 import NavHeader from "@/components/header/header";
 import { Toaster } from "@/components/ui/sonner";
