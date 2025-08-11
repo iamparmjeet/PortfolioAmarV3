@@ -1,6 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
-
 import env from "@/lib/env";
+
 import { transporter } from "../send/route";
 
 // --- Notification Email Details ---
