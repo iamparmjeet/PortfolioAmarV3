@@ -1,6 +1,5 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useMemo, useState } from "react";
 
 import type { PortfolioItem } from "@/lib/portfolio-data";
@@ -31,7 +30,7 @@ export default function PortfolioSectionWithFilter({ Items, PortfoliosItems, wit
     // Reset to first page when filter changes
     setCurrentPage(1);
     return filtered;
-  }, [activeCategory]);
+  }, []);
 
   const currentItems = filteredItems.slice(
     (currentPage - 1) * itemsPerPage,

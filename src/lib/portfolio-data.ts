@@ -241,13 +241,61 @@ export const allPortfolioItems: PortfolioItem[] = [
   ...HomeItems,
 ];
 
-export const ImagesGallery = [
+export type ImagesGalleryTypes = {
+  id: number;
+  title: string;
+  category: string;
+  thumbnail: string;
+  type: "image";
+};
+
+let imageIdCounter = 1;
+
+function createImageSet(categoryName: string, title: string, count: number): ImagesGalleryTypes[] {
+  const items: ImagesGalleryTypes[] = [];
+  for (let i = 1; i <= count; i++) {
+    items.push({
+      id: imageIdCounter++,
+      title,
+      category: categoryName,
+      thumbnail: `${URL}/assets/images/${categoryName}/${i}.webp`,
+      type: "image",
+    });
+  }
+  return items;
+}
+
+const imageCategoryDefinitions = [
   {
-    id: 1,
-    title: "Real Estate Promo",
-    category: "real-estate",
-    thumbnail: `${URL}/assets/Videos/real-estate/goldust-promo-1/master.m3u8`,
-    type: "video",
-    client: "Goldust City",
+    categoryName: "ayurvedic-products",
+    title: "Ayurvedic Products",
+    count: 14,
   },
+  { categoryName: "carry-bag", title: "Carry Bag", count: 2 },
+  { categoryName: "interior", title: "Interior Design", count: 14 },
+  { categoryName: "body", title: "Body Building", count: 3 },
+  { categoryName: "kosmic-karma", title: "Kosmic Karma", count: 35 },
+  { categoryName: "modal-shoot", title: "Modal Photoshoot", count: 25 },
+  { categoryName: "Jewellery", title: "Jewellery Collection", count: 60 },
+];
+
+export const ImagesGallery: ImagesGalleryTypes[] = imageCategoryDefinitions.flatMap(
+  def => createImageSet(def.categoryName, def.title, def.count),
+);
+
+const allImagesCategory: Categoriestype = {
+  id: "all",
+  name: "All Galleries",
+};
+
+const dynamicImageCategories: Categoriestype[] = imageCategoryDefinitions.map(
+  def => ({
+    id: def.categoryName, // e.g., "carry-bag"
+    name: def.title, // e.g., "Carry Bag"
+  }),
+);
+
+export const imageCategories: Categoriestype[] = [
+  allImagesCategory,
+  ...dynamicImageCategories,
 ];
