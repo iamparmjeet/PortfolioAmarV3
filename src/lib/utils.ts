@@ -46,3 +46,11 @@ export function FullDateAndTime() {
   });
   return FullDateAndTime;
 }
+
+export function generateUUID(): string {
+  if (typeof crypto !== "undefined" && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+
+  return Math.random().toString(12).substring(2, 10) + Math.random().toString(20).substring(2, 15);
+}
