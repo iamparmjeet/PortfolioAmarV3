@@ -1,8 +1,10 @@
 // lib/portfolio-data.ts
 import { URL } from "@/lib/data";
 
+import { generateUUID } from "./utils";
+
 export type PortfolioItem = {
-  id: number;
+  id: string;
   title: string;
   category: string;
   thumbnail: string;
@@ -32,7 +34,7 @@ export const categories: Categoriestype[] = [
 
 export const batch1: PortfolioItem[] = [
   {
-    id: 1,
+    id: generateUUID(),
     title: "Tile Shop",
     category: "real-estate",
     thumbnail: `${URL}/assets/Videos/aggarwal-tile/1/master.m3u8`,
@@ -40,7 +42,7 @@ export const batch1: PortfolioItem[] = [
     client: "Elite Properties",
   },
   {
-    id: 2,
+    id: generateUUID(),
     title: "Astrology",
     category: "astrology",
     thumbnail: `${URL}/assets/Videos/astro-talk/3/master.m3u8`,
@@ -48,7 +50,7 @@ export const batch1: PortfolioItem[] = [
     client: "Change Your Stars",
   },
   {
-    id: 3,
+    id: generateUUID(),
     title: "Astrology Braclets",
     category: "astrology",
     thumbnail: `${URL}/assets/Videos/braclet/1/master.m3u8`,
@@ -56,7 +58,7 @@ export const batch1: PortfolioItem[] = [
     client: "Glamour Studio",
   },
   {
-    id: 4,
+    id: generateUUID(),
     title: "Carry Bag",
     category: "fashion",
     thumbnail: `${URL}/assets/Videos/carry-bag/1/master.m3u8`,
@@ -64,7 +66,7 @@ export const batch1: PortfolioItem[] = [
     client: "Carry Your Style",
   },
   {
-    id: 5,
+    id: generateUUID(),
     title: "Genius Brain",
     category: "institute",
     thumbnail: `${URL}/assets/Videos/genius-brain-done/1/master.m3u8`,
@@ -72,7 +74,7 @@ export const batch1: PortfolioItem[] = [
     client: "Brain Power",
   },
   {
-    id: 6,
+    id: generateUUID(),
     title: "Hair Salon Institute",
     category: "institute",
     thumbnail: `${URL}/assets/Videos/hair-turner-academic-saloon/1/master.m3u8`,
@@ -80,7 +82,7 @@ export const batch1: PortfolioItem[] = [
     client: "Learn with Us",
   },
   {
-    id: 7,
+    id: generateUUID(),
     title: "Home Decor",
     category: "decor",
     thumbnail: `${URL}/assets/Videos/home-decor/1/master.m3u8`,
@@ -88,7 +90,7 @@ export const batch1: PortfolioItem[] = [
     client: "Elegant Accessories",
   },
   {
-    id: 8,
+    id: generateUUID(),
     title: "Hospital",
     category: "health",
     thumbnail: `${URL}/assets/Videos/hospital/1/master.m3u8`,
@@ -96,7 +98,7 @@ export const batch1: PortfolioItem[] = [
     client: "Health First",
   },
   {
-    id: 9,
+    id: generateUUID(),
     title: "Health Insurance",
     category: "health",
     thumbnail: `${URL}/assets/Videos/insurance/1/master.m3u8`,
@@ -104,7 +106,7 @@ export const batch1: PortfolioItem[] = [
     client: "Health First",
   },
   {
-    id: 10,
+    id: generateUUID(),
     title: "Interior",
     category: "decor",
     thumbnail: `${URL}/assets/Videos/interior/1/master.m3u8`,
@@ -112,7 +114,7 @@ export const batch1: PortfolioItem[] = [
     client: "Beauty Home",
   },
   {
-    id: 11,
+    id: generateUUID(),
     title: "Saloon",
     category: "institute",
     thumbnail: `${URL}/assets/Videos/jeens-saloon/1/master.m3u8`,
@@ -120,7 +122,7 @@ export const batch1: PortfolioItem[] = [
     client: "Jeens Salon",
   },
   {
-    id: 12,
+    id: generateUUID(),
     title: "Jewellery",
     category: "product",
     thumbnail: `${URL}/assets/Videos/jewellers/2/master.m3u8`,
@@ -128,7 +130,7 @@ export const batch1: PortfolioItem[] = [
     client: "Gold For Life",
   },
   // {
-  //   id: 13,
+  //   id: generateUUID(),
   //   title: "Kid Toys",
   //   category: "product",
   //   thumbnail: `${URL}/assets/Videos/kid-toy/1/master.m3u8`,
@@ -136,7 +138,7 @@ export const batch1: PortfolioItem[] = [
   //   client: "Toy Zone",
   // },
   {
-    id: 14,
+    id: generateUUID(),
     title: "Mattress",
     category: "product",
     thumbnail: `${URL}/assets/Videos/mattres/1/master.m3u8`,
@@ -144,7 +146,7 @@ export const batch1: PortfolioItem[] = [
     client: "Sleepy Cat",
   },
   {
-    id: 15,
+    id: generateUUID(),
     title: "Miss USA",
     category: "fashion",
     thumbnail: `${URL}/assets/Videos/miss-usa/1/master.m3u8`,
@@ -152,7 +154,7 @@ export const batch1: PortfolioItem[] = [
     client: "Beauty Queen",
   },
   {
-    id: 16,
+    id: generateUUID(),
     title: "Nutrition USA",
     category: "product",
     thumbnail: `${URL}/assets/Videos/nutrition-usa/1/master.m3u8`,
@@ -160,7 +162,7 @@ export const batch1: PortfolioItem[] = [
     client: "Nutrition USA",
   },
   {
-    id: 17,
+    id: generateUUID(),
     title: "Home Maker",
     category: "real-estate",
     thumbnail: `${URL}/assets/Videos/real-estate/1/master.m3u8`,
@@ -168,7 +170,7 @@ export const batch1: PortfolioItem[] = [
     client: "Toy Estate",
   },
   {
-    id: 18,
+    id: generateUUID(),
     title: "Skin Care",
     category: "beauty",
     thumbnail: `${URL}/assets/Videos/skin-treatment/1/master.m3u8`,
@@ -176,7 +178,7 @@ export const batch1: PortfolioItem[] = [
     client: "Glass Skin",
   },
   {
-    id: 19,
+    id: generateUUID(),
     title: "Ayurvedic",
     category: "ayurvedic",
     thumbnail: `${URL}/assets/Videos/ayurvedic/1/master.m3u8`,
@@ -187,7 +189,7 @@ export const batch1: PortfolioItem[] = [
 
 export const HomeItems: PortfolioItem[] = [
   {
-    id: 1,
+    id: generateUUID(),
     title: "Astrology",
     category: "astrology",
     thumbnail: `${URL}/assets/Videos/astro-talk/3/master.m3u8`,
@@ -195,7 +197,7 @@ export const HomeItems: PortfolioItem[] = [
     client: "Change Your Stars",
   },
   {
-    id: 2,
+    id: generateUUID(),
     title: "Acadour Perfumes",
     category: "perfumes",
     thumbnail: `${URL}/assets/Videos/perfumes/acadour-1/master.m3u8`,
@@ -203,7 +205,7 @@ export const HomeItems: PortfolioItem[] = [
     client: "Acadour",
   },
   {
-    id: 3,
+    id: generateUUID(),
     title: "Bath Valley",
     category: "decor",
     thumbnail: `${URL}/assets/Videos/tile/bath-valley-tile-1/master.m3u8`,
@@ -211,7 +213,7 @@ export const HomeItems: PortfolioItem[] = [
     client: "Bath Valley Tiles",
   },
   {
-    id: 4,
+    id: generateUUID(),
     title: "Tile Shop",
     category: "decor",
     thumbnail: `${URL}/assets/Videos/tile/tile-hero-1/master.m3u8`,
@@ -219,7 +221,7 @@ export const HomeItems: PortfolioItem[] = [
     client: "Bath Valley Tiles",
   },
   {
-    id: 5,
+    id: generateUUID(),
     title: "Real Estate Promo",
     category: "real-estate",
     thumbnail: `${URL}/assets/Videos/real-estate/goldust-city-sajjan-1/master.m3u8`,
@@ -227,7 +229,7 @@ export const HomeItems: PortfolioItem[] = [
     client: "New Housing Project",
   },
   {
-    id: 6,
+    id: generateUUID(),
     title: "Real Estate Promo",
     category: "real-estate",
     thumbnail: `${URL}/assets/Videos/real-estate/goldust-promo-1/master.m3u8`,
@@ -242,20 +244,18 @@ export const allPortfolioItems: PortfolioItem[] = [
 ];
 
 export type ImagesGalleryTypes = {
-  id: number;
+  id: string;
   title: string;
   category: string;
   thumbnail: string;
   type: "image";
 };
 
-let imageIdCounter = 1;
-
 function createImageSet(categoryName: string, title: string, count: number): ImagesGalleryTypes[] {
   const items: ImagesGalleryTypes[] = [];
   for (let i = 1; i <= count; i++) {
     items.push({
-      id: imageIdCounter++,
+      id: generateUUID(),
       title,
       category: categoryName,
       thumbnail: `${URL}/assets/images/${categoryName}/${i}.webp`,

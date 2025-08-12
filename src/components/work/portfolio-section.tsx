@@ -1,8 +1,8 @@
+import Container from "@/components/container";
+import { OrangeHeading1 } from "@/components/heading";
+import LetsTalkButton from "@/components/lets-talk-btn";
 import { HomeItems } from "@/lib/portfolio-data";
 
-import Container from "./container";
-import { OrangeHeading1 } from "./heading";
-import LetsTalkButton from "./lets-talk-btn";
 import PortfolioSectionWithFilter from "./portfolios-all";
 
 export default function PortfolioSection() {

@@ -4,9 +4,9 @@ import { useState } from "react";
 
 import ContactBox from "@/components/contact-box";
 import Container from "@/components/container";
-import PortfolioSectionWithFilter from "@/components/portfolios-all";
 import GalleryToggleButton from "@/components/work/gallery-toggle-button";
 import FilterableImageGallery from "@/components/work/image-gallery";
+import PortfolioSectionWithFilter from "@/components/work/portfolios-all";
 import { URL } from "@/lib/data";
 import { allPortfolioItems } from "@/lib/portfolio-data";
 

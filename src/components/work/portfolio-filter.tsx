@@ -4,10 +4,9 @@ import { IconPlayCard } from "@tabler/icons-react";
 import Image from "next/image";
 import { useState } from "react";
 
+import { Button } from "@/components/ui/button";
 import { placeholderImg } from "@/lib/data";
 import { cn } from "@/lib/utils";
-
-import { Button } from "./ui/button";
 
 // Portfolio categories
 const categories = [

@@ -9,7 +9,7 @@ import NextVideo from "@/components/video/next-video";
 import { categories as Categories } from "@/lib/portfolio-data";
 import { cn } from "@/lib/utils";
 
-import LazyLoadWrapper from "./video/lazy-load-wrapper";
+import LazyLoadWrapper from "../video/lazy-load-wrapper";
 
 type PortfolioSectionWithFilterProps = {
   Items?: number;
@@ -17,7 +17,11 @@ type PortfolioSectionWithFilterProps = {
   withFilter?: boolean;
 };
 
-export default function PortfolioSectionWithFilter({ Items, PortfoliosItems, withFilter = true }: PortfolioSectionWithFilterProps) {
+export default function PortfolioSectionWithFilter({
+  Items,
+  PortfoliosItems,
+  withFilter = true,
+}: PortfolioSectionWithFilterProps) {
   const [activeCategory, setActiveCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = Items || 15;
@@ -30,7 +34,7 @@ export default function PortfolioSectionWithFilter({ Items, PortfoliosItems, wit
     // Reset to first page when filter changes
     setCurrentPage(1);
     return filtered;
-  }, []);
+  }, [PortfoliosItems, activeCategory]);
 
   const currentItems = filteredItems.slice(
     (currentPage - 1) * itemsPerPage,
