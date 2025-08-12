@@ -36,7 +36,7 @@ function InfoSecWithForm() {
     <section className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
       {/* Video */}
 
-      <NextVideo className="w-1/2 " href={item} thumbnail={item.replace(".m3u8", ".webp")} />
+      <NextVideo className="md:w-1/2 " href={item} thumbnail={item.replace(".m3u8", ".webp")} />
 
       {/* Text + Form */}
       <div className="flex-1">
