@@ -67,6 +67,7 @@ export default function ContactForm() {
           type="text"
           {...register("name")}
           placeholder="Your full name"
+          className="h-12"
         />
         {errors.name && (
           <p className="text-red-600 -mt-2">{errors.name.message}</p>
@@ -79,6 +80,7 @@ export default function ContactForm() {
           type="email"
           {...register("email")}
           placeholder="Your email address"
+          className="h-12"
         />
         {errors.email && (
           <p className="text-red-600 -mt-2">{errors.email.message}</p>
@@ -92,6 +94,7 @@ export default function ContactForm() {
           maxLength={10}
           {...register("mobile")}
           placeholder="Your 10 digit whatsapp number"
+          className="h-12"
         />
         {errors.mobile && (
           <p className="text-red-600 -mt-2">{errors.mobile.message}</p>
@@ -104,6 +107,7 @@ export default function ContactForm() {
           type="url"
           {...register("clientwebsite")}
           placeholder="Your website URL."
+          className="h-12"
         />
         {errors.clientwebsite && (
           <p className="text-red-600 -mt-2">{errors.clientwebsite.message}</p>
@@ -116,6 +120,7 @@ export default function ContactForm() {
           type="text"
           {...register("subject")}
           placeholder="Subject of your message"
+          className="h-12"
         />
         {errors.subject && (
           <p className="text-red-600 -mt-2">{errors.subject.message}</p>
