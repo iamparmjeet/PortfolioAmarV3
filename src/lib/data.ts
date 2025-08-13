@@ -14,10 +14,10 @@ export const HeroImgBlur = `${URL}/amar-in-action/hero-3/blur.webp`;
 // many more
 
 export const socials = {
-  insta: "https://www.instagram.com/amarjeetmishra001/",
+  insta: "https://www.instagram.com/edit_with_amar",
   twitter: "#",
   youtube: "https://www.youtube.com/@AmarEditzOfficial",
-  fiverr: "#",
-  linkedin: "#",
+  fiverr: "https://www.fiverr.com/amarmishra008",
+  linkedin: "https://www.linkedin.com/in/amarjeetmishra001/",
   freelancer: "#",
 };
