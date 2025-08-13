@@ -8,7 +8,7 @@ export const bg1_min = `${URL}/images/bg-gradient.webp`;
 export const bg2_min = `${URL}/images/bg-gradient1.webp`;
 export const bg2_min_jpg = `${URL}/images/bg-gradient-min.jpg`;
 
-export const HeroImg = `${URL}/amar-in-action/hero-3/hd.webp`;
+export const HeroImg = `${URL}/amar-in-action/hero-14/hd.webp`;
 export const HeroImgBlur = `${URL}/amar-in-action/hero-3/blur.webp`;
 
 // many more
