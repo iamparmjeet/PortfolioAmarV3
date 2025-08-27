@@ -484,7 +484,7 @@ const ImagesGalleryArr: ImagesGalleryTypes[] = [
   {
     id: generateUUID(),
     title: "Modal Shoot",
-    category: "modal-shoot",
+    category: "modal-shoot, Jewellery",
     thumbnail: `${URL}/assets/images/modal-shoot/12.webp`,
   },
 ];
@@ -499,7 +499,6 @@ const imageCategoryDefinitions = [
   { categoryName: "body", title: "Body Building" },
   { categoryName: "kosmic-karma", title: "Kosmic Karma" },
   { categoryName: "modal-shoot", title: "Modal Photoshoot" },
-  { categoryName: "Jewellery", title: "Jewellery Collection" },
 ];
 
 export const ImagesGallery: ImagesGalleryTypes[] = ImagesGalleryArr;
