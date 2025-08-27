@@ -1,4 +1,4 @@
-import { IconBrandWhatsapp, IconMail, IconMap2 } from "@tabler/icons-react";
+import { IconMail, IconMap2 } from "@tabler/icons-react";
 import Link from "next/link";
 
 import Container from "../container";
@@ -136,12 +136,12 @@ const ContactItems = [
     label: "Ludhiana, Punjab",
     icon: <IconMap2 className="w-5 h-5 shrink-0" />,
   },
-  {
-    id: 2,
-    href: "wa.me/+919780189866",
-    label: "(+91) 97801-89866",
-    icon: <IconBrandWhatsapp className="w-5 h-5 shrink-0" />,
-  },
+  // {
+  //   id: 2,
+  //   href: "wa.me/+919780189866",
+  //   label: "(+91) 97801-89866",
+  //   icon: <IconBrandWhatsapp className="w-5 h-5 shrink-0" />,
+  // },
   {
     id: 3,
     href: "mailto:info@amarjeetmishra.com",
