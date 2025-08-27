@@ -243,45 +243,266 @@ export const allPortfolioItems: PortfolioItem[] = [
   ...HomeItems,
 ];
 
+// Images below
+
 export type ImagesGalleryTypes = {
   id: string;
   title: string;
   category: string;
   thumbnail: string;
-  type: "image";
 };
 
-function createImageSet(categoryName: string, title: string, count: number): ImagesGalleryTypes[] {
-  const items: ImagesGalleryTypes[] = [];
-  for (let i = 1; i <= count; i++) {
-    items.push({
-      id: generateUUID(),
-      title,
-      category: categoryName,
-      thumbnail: `${URL}/assets/images/${categoryName}/${i}.webp`,
-      type: "image",
-    });
-  }
-  return items;
-}
+const ImagesGalleryArr: ImagesGalleryTypes[] = [
+  {
+    id: generateUUID(),
+    title: "Frizzy & Glossy Hair",
+    category: "ayurvedic-products",
+    thumbnail: `${URL}/assets/images/ayurvedic-products/2.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Velvet",
+    category: "ayurvedic-products",
+    thumbnail: `${URL}/assets/images/ayurvedic-products/3.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Velvet Crystal Face Cream",
+    category: "ayurvedic-products",
+    thumbnail: `${URL}/assets/images/ayurvedic-products/7.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Carry Bag",
+    category: "carry-bag",
+    thumbnail: `${URL}/assets/images/carry-bag/1.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Interior",
+    category: "interior",
+    thumbnail: `${URL}/assets/images/interior/1.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Interior",
+    category: "interior",
+    thumbnail: `${URL}/assets/images/interior/2.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Interior",
+    category: "interior",
+    thumbnail: `${URL}/assets/images/interior/3.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Interior",
+    category: "interior",
+    thumbnail: `${URL}/assets/images/interior/4.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Interior",
+    category: "interior",
+    thumbnail: `${URL}/assets/images/interior/5.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Interior",
+    category: "interior",
+    thumbnail: `${URL}/assets/images/interior/6.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Interior",
+    category: "interior",
+    thumbnail: `${URL}/assets/images/interior/7.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Interior",
+    category: "interior",
+    thumbnail: `${URL}/assets/images/interior/8.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Interior",
+    category: "interior",
+    thumbnail: `${URL}/assets/images/interior/8.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Interior",
+    category: "interior",
+    thumbnail: `${URL}/assets/images/interior/9.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Interior",
+    category: "interior",
+    thumbnail: `${URL}/assets/images/interior/10.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Interior",
+    category: "interior",
+    thumbnail: `${URL}/assets/images/interior/11.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Interior",
+    category: "interior",
+    thumbnail: `${URL}/assets/images/interior/12.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Interior",
+    category: "interior",
+    thumbnail: `${URL}/assets/images/interior/13.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Interior",
+    category: "interior",
+    thumbnail: `${URL}/assets/images/interior/14.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Body Builder",
+    category: "body",
+    thumbnail: `${URL}/assets/images/body/1.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Body Builder",
+    category: "body",
+    thumbnail: `${URL}/assets/images/body/2.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Body Builder",
+    category: "body",
+    thumbnail: `${URL}/assets/images/body/3.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Jewellery",
+    category: "jewellery",
+    thumbnail: `${URL}/assets/images/Jewellery/2.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Jewellery",
+    category: "jewellery",
+    thumbnail: `${URL}/assets/images/Jewellery/3.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Jewellery",
+    category: "jewellery",
+    thumbnail: `${URL}/assets/images/Jewellery/9.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Jewellery",
+    category: "jewellery",
+    thumbnail: `${URL}/assets/images/Jewellery/1.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Jewellery",
+    category: "jewellery",
+    thumbnail: `${URL}/assets/images/Jewellery/11.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Jewellery",
+    category: "jewellery",
+    thumbnail: `${URL}/assets/images/Jewellery/21.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Jewellery",
+    category: "jewellery",
+    thumbnail: `${URL}/assets/images/Jewellery/23.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Kosmic Bracelet",
+    category: "kosmic-karma",
+    thumbnail: `${URL}/assets/images/kosmic-karma/1.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Kosmic Bracelet",
+    category: "kosmic-karma",
+    thumbnail: `${URL}/assets/images/kosmic-karma/3.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Modal Shoot",
+    category: "modal-shoot",
+    thumbnail: `${URL}/assets/images/modal-shoot/2.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Modal Shoot",
+    category: "modal-shoot",
+    thumbnail: `${URL}/assets/images/modal-shoot/4.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Modal Shoot",
+    category: "modal-shoot",
+    thumbnail: `${URL}/assets/images/modal-shoot/5.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Modal Shoot",
+    category: "modal-shoot",
+    thumbnail: `${URL}/assets/images/modal-shoot/7.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Modal Shoot",
+    category: "modal-shoot",
+    thumbnail: `${URL}/assets/images/modal-shoot/8.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Modal Shoot",
+    category: "modal-shoot",
+    thumbnail: `${URL}/assets/images/modal-shoot/9.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Modal Shoot",
+    category: "modal-shoot",
+    thumbnail: `${URL}/assets/images/modal-shoot/11.webp`,
+  },
+  {
+    id: generateUUID(),
+    title: "Modal Shoot",
+    category: "modal-shoot",
+    thumbnail: `${URL}/assets/images/modal-shoot/12.webp`,
+  },
+];
 
 const imageCategoryDefinitions = [
   {
     categoryName: "ayurvedic-products",
     title: "Ayurvedic Products",
-    count: 14,
   },
-  { categoryName: "carry-bag", title: "Carry Bag", count: 2 },
-  { categoryName: "interior", title: "Interior Design", count: 14 },
-  { categoryName: "body", title: "Body Building", count: 3 },
-  { categoryName: "kosmic-karma", title: "Kosmic Karma", count: 35 },
-  { categoryName: "modal-shoot", title: "Modal Photoshoot", count: 25 },
-  { categoryName: "Jewellery", title: "Jewellery Collection", count: 60 },
+  { categoryName: "carry-bag", title: "Carry Bag" },
+  { categoryName: "interior", title: "Interior Design" },
+  { categoryName: "body", title: "Body Building" },
+  { categoryName: "kosmic-karma", title: "Kosmic Karma" },
+  { categoryName: "modal-shoot", title: "Modal Photoshoot" },
+  { categoryName: "Jewellery", title: "Jewellery Collection" },
 ];
 
-export const ImagesGallery: ImagesGalleryTypes[] = imageCategoryDefinitions.flatMap(
-  def => createImageSet(def.categoryName, def.title, def.count),
-);
+export const ImagesGallery: ImagesGalleryTypes[] = ImagesGalleryArr;
 
 const allImagesCategory: Categoriestype = {
   id: "all",
