@@ -1,8 +1,9 @@
 "use client";
-import { IconAsterisk, IconMessage2Heart } from "@tabler/icons-react";
+import { IconAsterisk } from "@tabler/icons-react";
 import Image from "next/image";
 import { useMemo } from "react";
 
+import ReviewsComponent from "@/components/about/review-component";
 import ContactBox from "@/components/contact-box";
 import Container from "@/components/container";
 import { Marquee } from "@/components/marquee";
@@ -10,7 +11,7 @@ import { URL } from "@/lib/data";
 
 const content = [
   <p key="c1">
-    Hey! I'm a self-taught video editor and shooter who helps brands tell
+    Hey! I'm a self-taught video editor and photographer who helps brands tell
     compelling visual stories. I specialize in creating content that connects
     with audiences—from catchy
     {" "}
@@ -74,29 +75,6 @@ const highlights = [
   },
 ];
 
-export default function AboutPage() {
-  return (
-    <>
-      <Container className="flex-col gap-16">
-        {/* Section1 - PTB */}
-        <AboutSection />
-        {/* Section2-About */}
-        <HighlightsSection />
-        {/* Section3- Reviews */}
-        <ReviewsSection />
-        {/* Section4- Moving text */}
-      </Container>
-      <MovingTextSection />
-      <Container className="flex-col gap-16 items-center">
-        <AmarInActionGallery />
-        {/* {Section 5 - video} */}
-        {/* {Section 6 - Contact Box} */}
-        <ContactBox />
-      </Container>
-    </>
-  );
-}
-
 function AboutSection() {
   return (
     <section className="flex flex-col items-center">
@@ -118,19 +96,17 @@ function AboutSection() {
 
 function HighlightsSection() {
   return (
-    <section className="flex flex-col md:flex-row gap-8">
-      <div className="md:w-1/2">
-        <div className="relative md:w-[750px] md:h-[1000px] overflow-hidden rounded-xl border border-white/10">
-          <Image
-            src={`${URL}/amar-in-action/hero-2/hd.webp`}
-            alt="Amar"
-            width={1000}
-            height={1000}
-            className="rounded-xl md:absolute -top-40"
-          />
-        </div>
+    <section className="flex flex-col lg:flex-row gap-8">
+      <div className="w-full lg:w-1/2">
+        <Image
+          src={`${URL}/amar-in-action/hero-17/hd.webp`}
+          alt="Amar"
+          width={1000}
+          height={1000}
+          className="rounded-xl"
+        />
       </div>
-      <div className="flex flex-col md:w-1/2">
+      <div className="w-full flex flex-col lg:w-1/2">
         <h2 className="text-4xl mb-10">Amar Editz</h2>
         {content.map(text => (
           <div className="text-xl mb-4" key={text.key}>{text}</div>
@@ -145,37 +121,6 @@ function HighlightsSection() {
               </li>
             ))}
           </ul>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ReviewsSection() {
-  return (
-    <section className="flex flex-col items-center gap-6">
-      <IconMessage2Heart className="stroke-green-400 size-10" />
-      <h2 className="text-5xl text-center">What clients say about us</h2>
-      <div className="flex flex-col md:flex-row gap-8">
-        <div className="p-10 rounded-2xl bg-white/5">
-          <p className="font-medium text-xl mb-4">"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore nulla deserunt fugit hic sapiente dolorem praesentium tempora veritatis dignissimos obcaecati. Ipsa non optio cum deserunt, sint a vitae id. Saepe nulla provident distinctio quis mollitia inventore quod iste, tempora autem sit sequi dolore perferendis hic nam odit est. Reprehenderit, deleniti!"</p>
-          <div className="flex gap-4 items-center">
-            <p className="size-10 bg-gray-200 rounded-full"></p>
-            <div>
-              <p className="text-2xl font-medium">Client Name 1</p>
-              <small className="text-neutral-400">CEO At Company</small>
-            </div>
-          </div>
-        </div>
-        <div className="p-10 rounded-2xl bg-white/5">
-          <p className="font-medium text-xl mb-4">"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore nulla deserunt fugit hic sapiente dolorem praesentium tempora veritatis dignissimos obcaecati. Ipsa non optio cum deserunt, sint a vitae id. Saepe nulla provident distinctio quis mollitia inventore quod iste, tempora autem sit sequi dolore perferendis hic nam odit est. Reprehenderit, deleniti!"</p>
-          <div className="flex gap-4 items-center">
-            <p className="size-10 bg-gray-200 rounded-full"></p>
-            <div>
-              <p className="text-2xl font-medium">Client Name 1</p>
-              <small className="text-neutral-400">CEO At Company</small>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -240,6 +185,25 @@ function AmarInActionGallery() {
   );
 }
 
-// Video Gallery
-
-// export to seperate file
+export default function AboutPage() {
+  return (
+    <>
+      <Container className="flex-col gap-16">
+        {/* Section1 - PTB */}
+        <AboutSection />
+        {/* Section2-About */}
+        <HighlightsSection />
+        {/* Section3- Reviews */}
+        <ReviewsComponent />
+        {/* Section4- Moving text */}
+      </Container>
+      <MovingTextSection />
+      <Container className="flex-col gap-16 items-center">
+        <AmarInActionGallery />
+        {/* {Section 5 - video} */}
+        {/* {Section 6 - Contact Box} */}
+        <ContactBox />
+      </Container>
+    </>
+  );
+}
