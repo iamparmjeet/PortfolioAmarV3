@@ -156,7 +156,7 @@ const ImagesArray = [
   { index: 3, src: `${URL}/amar-in-action/hero-12/hd.webp` },
   { index: 4, src: `${URL}/amar-in-action/hero-14/hd.webp` },
   { index: 5, src: `${URL}/amar-in-action/hero-16/hd.webp` },
-  { index: 6, src: `${URL}/amar-in-action/hero-17/hd.webp` },
+  { index: 6, src: `${URL}/amar-in-action/hero-15/hd.webp` },
 ];
 
 function AmarInActionGallery() {
