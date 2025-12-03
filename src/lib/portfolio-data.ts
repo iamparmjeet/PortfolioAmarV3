@@ -35,19 +35,19 @@ export const categories: Categoriestype[] = [
 export const batch1: PortfolioItem[] = [
   {
     id: generateUUID(),
+    title: "Acadour Perfumes",
+    category: "perfumes",
+    thumbnail: `${URL}/assets/Videos/perfumes/acadour-1/master.m3u8`,
+    type: "video",
+    client: "Acadour",
+  },
+  {
+    id: generateUUID(),
     title: "Tile Shop",
     category: "real-estate",
     thumbnail: `${URL}/assets/Videos/aggarwal-tile/1/master.m3u8`,
     type: "video",
     client: "Elite Properties",
-  },
-  {
-    id: generateUUID(),
-    title: "Astrology",
-    category: "astrology",
-    thumbnail: `${URL}/assets/Videos/astro-talk/3/master.m3u8`,
-    type: "video",
-    client: "Change Your Stars",
   },
   {
     id: generateUUID(),
@@ -185,6 +185,14 @@ export const batch1: PortfolioItem[] = [
     type: "video",
     client: "Glass Skin",
   },
+  {
+    id: generateUUID(),
+    title: "Real Estate Promo",
+    category: "real-estate",
+    thumbnail: `${URL}/assets/Videos/real-estate/goldust-city-sajjan-1/master.m3u8`,
+    type: "video",
+    client: "New Housing Project",
+  },
 ];
 
 export const HomeItems: PortfolioItem[] = [
@@ -198,11 +206,19 @@ export const HomeItems: PortfolioItem[] = [
   },
   {
     id: generateUUID(),
-    title: "Acadour Perfumes",
-    category: "perfumes",
-    thumbnail: `${URL}/assets/Videos/perfumes/acadour-1/master.m3u8`,
+    title: "Rajgadh Estates",
+    category: "real-estate",
+    thumbnail: `${URL}/assets/Videos/real-estate/5/master.m3u8`,
     type: "video",
-    client: "Acadour",
+    client: "Rajgadh Estates",
+  },
+  {
+    id: generateUUID(),
+    title: "Lyallpur Sweets",
+    category: "real-estate",
+    thumbnail: `${URL}/assets/Videos/real-estate/6/master.m3u8`,
+    type: "video",
+    client: "Goldust Properties",
   },
   {
     id: generateUUID(),
@@ -224,24 +240,13 @@ export const HomeItems: PortfolioItem[] = [
     id: generateUUID(),
     title: "Real Estate Promo",
     category: "real-estate",
-    thumbnail: `${URL}/assets/Videos/real-estate/goldust-city-sajjan-1/master.m3u8`,
-    type: "video",
-    client: "New Housing Project",
-  },
-  {
-    id: generateUUID(),
-    title: "Real Estate Promo",
-    category: "real-estate",
     thumbnail: `${URL}/assets/Videos/real-estate/goldust-promo-1/master.m3u8`,
     type: "video",
     client: "Goldust City",
   },
 ];
 
-export const allPortfolioItems: PortfolioItem[] = [
-  ...batch1,
-  ...HomeItems,
-];
+export const allPortfolioItems: PortfolioItem[] = [...HomeItems, ...batch1];
 
 // Images below
 
