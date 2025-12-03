@@ -20,7 +20,7 @@ const categories = [
   { id: "beauty", name: "Beauty & Salon" },
   { id: "health", name: "Health" },
   { id: "product", name: "Product Catalogs" },
-  { id: "podcast", name: "Podcasts" },
+  // { id: "podcast", name: "Podcasts" },
 ];
 
 // Portfolio items
@@ -183,7 +183,9 @@ export default function PortfolioFilter() {
   const [activeCategory, setActiveCategory] = useState("all");
 
   const filteredItems
-    = activeCategory === "all" ? portfolioItems : portfolioItems.filter(item => item.category === activeCategory);
+    = activeCategory === "all"
+      ? portfolioItems
+      : portfolioItems.filter(item => item.category === activeCategory);
 
   return (
     <div className="space-y-8 w-full">
@@ -208,7 +210,10 @@ export default function PortfolioFilter() {
       {/* Portfolio Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredItems.map(item => (
-          <div key={item.id} className="group relative overflow-hidden rounded-lg">
+          <div
+            key={item.id}
+            className="group relative overflow-hidden rounded-lg"
+          >
             <div className="aspect-video relative overflow-hidden">
               <Image
                 src={item.thumbnail || "/placeholder.svg"}
@@ -224,7 +229,9 @@ export default function PortfolioFilter() {
                       </Button>
                     )
                   : (
-                      <Button className="px-4 py-2 bg-gold-500 rounded-md text-black font-medium">View Gallery</Button>
+                      <Button className="px-4 py-2 bg-gold-500 rounded-md text-black font-medium">
+                        View Gallery
+                      </Button>
                     )}
               </div>
             </div>

@@ -22,7 +22,9 @@ export default function GalleryToggleButton({
       onClick={onClick}
       className={cn(
         "relative w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-2xl overflow-hidden transition-all duration-300 transform hover:scale-105 cursor-pointer",
-        isActive ? "ring-4 ring-orange-500 scale-105" : "ring-2 ring-transparent",
+        isActive
+          ? "ring-4 ring-orange-500 scale-105"
+          : "ring-2 ring-transparent",
       )}
     >
       <NextImage

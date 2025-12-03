@@ -29,7 +29,7 @@ export const categories: Categoriestype[] = [
   { id: "beauty", name: "Beauty & Salon" },
   { id: "health", name: "Health" },
   { id: "product", name: "Product Catalogs" },
-  { id: "podcast", name: "Podcasts" },
+  // { id: "podcast", name: "Podcasts" },
 ];
 
 export const batch1: PortfolioItem[] = [

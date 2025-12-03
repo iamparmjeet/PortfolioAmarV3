@@ -27,9 +27,10 @@ export default function PortfolioSectionWithFilter({
   const itemsPerPage = Items || 15;
 
   const filteredItems = useMemo(() => {
-    const filtered = activeCategory === "all"
-      ? PortfoliosItems
-      : PortfoliosItems.filter(item => item.category === activeCategory);
+    const filtered
+      = activeCategory === "all"
+        ? PortfoliosItems
+        : PortfoliosItems.filter(item => item.category === activeCategory);
 
     // Reset to first page when filter changes
     setCurrentPage(1);
@@ -44,7 +45,7 @@ export default function PortfolioSectionWithFilter({
   return (
     <div className="space-y-8 w-full">
       {/* Filter Buttons */}
-      { withFilter && (
+      {withFilter && (
         <FilterBtnSection
           activeCategory={activeCategory}
           setActiveCategory={setActiveCategory}
@@ -66,7 +67,10 @@ type FilterBtnSectionProps = {
   activeCategory: string;
 };
 
-function FilterBtnSection({ setActiveCategory, activeCategory }: FilterBtnSectionProps) {
+function FilterBtnSection({
+  setActiveCategory,
+  activeCategory,
+}: FilterBtnSectionProps) {
   return (
     <div className="flex flex-wrap justify-center gap-2 md:gap-4">
       {Categories.map(category => (
@@ -74,7 +78,7 @@ function FilterBtnSection({ setActiveCategory, activeCategory }: FilterBtnSectio
           key={category.id}
           onClick={() => setActiveCategory(category.id)}
           className={cn(
-            "px-4 py-2 rounded-full transition-colors",
+            "px-4 py-2 rounded-full transition-colors cursor-pointer",
             activeCategory === category.id
               ? "bg-orange-500 text-neutral-200"
               : "bg-neutral-900 text-white hover:bg-orange-500",
@@ -85,7 +89,7 @@ function FilterBtnSection({ setActiveCategory, activeCategory }: FilterBtnSectio
       ))}
     </div>
   );
-};
+}
 
 type PortfolioItemsGridProps = {
   currentItems: PortfolioItem[];
@@ -99,8 +103,10 @@ function PortfolioItemsGrid({ currentItems }: PortfolioItemsGridProps) {
           key={item.id}
           className="group relative overflow-hidden rounded-lg"
         >
-
-          <div key={item.id} className="group relative overflow-hidden rounded-lg">
+          <div
+            key={item.id}
+            className="group relative overflow-hidden rounded-lg"
+          >
             <NextVideo
               href={item.thumbnail}
               thumbnail={item.thumbnail.replace(".m3u8", ".webp")}
