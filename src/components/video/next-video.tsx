@@ -1,5 +1,5 @@
-import Video from "next-video/player";
 import Image from "next/image";
+import Video from "next-video/player";
 
 import { cn } from "@/lib/utils";
 
@@ -22,22 +22,19 @@ export default function NextVideo({
       )}
     >
       <Video
-        src={href}
-        className="w-full h-full portrait-video-fit"
-        autoPlay={false}
+				src={href}
+				poster={thumbnail}
+				// preload="metadata"
+				className="portrait-video-fit absolute inset-0 w-full h-full"
+				style={{
+          display: "block",
+          width: "100%",
+          height: "100%",
+        }}
+				controls={true}
         muted={false}
-        controls={true}
+        autoPlay={false}
       >
-        <Image
-          slot="poster"
-          src={thumbnail}
-          placeholder="blur"
-          blurDataURL={thumbnail.replace("thumbnail.webp", "blur-thumbnail.webp")}
-          width={720}
-          height={1280}
-          alt="Video thumbnail"
-          priority
-        />
       </Video>
     </div>
   );

@@ -2,60 +2,73 @@
 @import "tw-animate-css";
 
 @theme {
-  --font-serif: var(--font-dm-serif), serif;
-  --font-sans: var(--font-inter), sans-serif;
+	--font-serif: var(--font-dm-serif), serif;
+	--font-sans: var(--font-inter), sans-serif;
 }
 
 @theme inline {
-  --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
+	--animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
 }
+
 @layer base {
-  body {
-    @apply font-sans;
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-serif text-gray-300;
-  }
-  p {
-    @apply font-sans text-gray-300;
-  }
+	body {
+		@apply font-sans;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply font-serif text-gray-300;
+	}
+
+	p {
+		@apply font-sans text-gray-300;
+	}
 }
 
 @keyframes spotlight {
-  0% {
-    opacity: 0;
-    transform: translate(-72%, -62%) scale(0.5);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -40%) scale(1);
-  }
+	0% {
+		opacity: 0;
+		transform: translate(-72%, -62%) scale(0.5);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translate(-50%, -40%) scale(1);
+	}
 }
 
 @keyframes marquee {
-  from {
-    transform: translateX(0%);
-  }
-  to {
-    transform: translateX(var(--move-distance));
-  }
+	from {
+		transform: translateX(0%);
+	}
+
+	to {
+		transform: translateX(var(--move-distance));
+	}
 }
 
 @theme inline {
-  --animate-marquee: marquee var(--duration) linear infinite;
+	--animate-marquee: marquee var(--duration) linear infinite;
 }
 
 .portrait-video-fit {
-  --object-fit: cover;
+	/* These are CSS custom properties read by media-controller internals */
+	--media-object-fit: cover;
+	--media-object-position: center;
 
-  --media-object-fit: cover;
+	/* Force the web component itself to be block-level immediately */
+	display: block !important;
+	width: 100% !important;
+	height: 100% !important;
 }
 
-.portrait-video-fit img[slot="poster"] {
-  object-fit: cover !important;
+/* Target the actual <video> inside the shadow DOM via the exposed custom property */
+.portrait-video-fit::part(media) {
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
 }

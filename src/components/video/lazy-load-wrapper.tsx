@@ -5,56 +5,48 @@ import { type ReactNode, useEffect, useRef, useState } from "react";
 type LazyLoadWrapperProps = {
   children: ReactNode;
   className?: string;
-  placeholderHeight?: string; // e.g., '500px' or use aspect-ratio
 };
 
 export default function LazyLoadWrapper({
   children,
   className,
-  placeholderHeight = "400px", // A sensible default
 }: LazyLoadWrapperProps) {
   const [isInView, setIsInView] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    // Ensure we don't run this on the server
     if (typeof window === "undefined" || !ref.current)
       return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Update state to true when the element is intersecting
         if (entry.isIntersecting) {
           setIsInView(true);
-          // Stop observing once it's in view
           observer.unobserve(entry.target);
         }
       },
       {
-        // Optional: Load content 200px before it enters the viewport
-        // for a smoother experience.
         rootMargin: "200px",
       },
     );
-
     observer.observe(ref.current);
-
-    // Cleanup function to disconnect the observer
-    return () => {
-      if (observer && ref.current) {
-        observer.disconnect();
-      }
-    };
-  }, []); // Empty dependency array ensures this runs only once on mount
+    return () => observer.disconnect    ()
+  }, [])
 
   return (
-    <div
-      ref={ref}
-      className={className}
-      // Set a minimum height to prevent layout shift while the component is not in view
-      style={!isInView ? { minHeight: placeholderHeight } : {}}
-    >
-      {isInView ? children : null}
-    </div>
-  );
-}
+      <div ref={ref} className={className}>
+        {isInView
+          ? children
+          : (
+              <div className="rounded-lg overflow-hidden">
+                <div className="aspect-[9/16] w-full bg-neutral-800 animate-pulse rounded-xl" />
+                <div className="p-4 bg-neutral-900 space-y-2">
+                  <div className="h-5 w-3/4 bg-neutral-800 rounded animate-pulse" />
+                  <div className="h-4 w-1/2 bg-neutral-800 rounded animate-pulse" />
+                  <div className="h-4 w-1/4 bg-neutral-700 rounded animate-pulse mt-2" />
+                </div>
+              </div>
+            )}
+      </div>
+    );
+  }
