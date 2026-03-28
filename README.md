@@ -5,32 +5,36 @@
   - [x] Header Mobile
   - [x] Footer Desktop
   - [x] Footer Mobile
-- [ ] Home Page
-  - [ ] Desktop Version
-  - [ ] Mobile Version
+- [x] Home Page
+  - [x] Desktop Version
+  - [x] Mobile Version
   - [x] Hero
   - [x] Services
   - [x] Portfolios
-    - [ ] Seperate Portfolios section for home
-    - [ ] Mobile Video Fix
-    - [ ] Blur image and backup image to the video
-    - [ ] New Videos to the home as well as the work page
+    - [x] Seperate Portfolios section for home
+    - [x] Mobile Video Fix
+    - [x] Blur image and backup image to the video
+    - [x] New Videos to the home as well as the work page
   - [x] Reviews
     - [ ] Real Data pending
-  - [ ] Contacts
-- [ ] About Page
+  - [x] Contacts
+  - [ ] Pricing
+  - [ ] Hero showreel
+  - [ ] Whatsapp
+  - [ ] Masonary Style grid
+- [x] About Page
   - [x] Desktop Version
   - [x] Mobile Version
-  - [ ] Video Section
-- [ ] Portfolio Page
+  - [x] Video Section
+- [x] Portfolio Page
   - [x] Desktop Version
   - [x] Mobile Version
-  - [ ] Card Design
+  - [x] Card Design
   - [x] Fetching Data from Cloudinary
   - [x] CDN added
 - Contact Us page
-  - [ ] Desktop
-  - [ ] Mobile
-  - [ ] Form
-  - [ ] Adding Resend API
-  - [ ] Adding Toaster
+  - [x] Desktop
+  - [x] Mobile
+  - [x] Form
+  - [x] Adding Resend API
+  - [x] Adding Toaster

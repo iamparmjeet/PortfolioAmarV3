@@ -32,10 +32,9 @@ export default function HeroSection() {
             words={["Video Campaigns", "Insta Campaigns", "Youtube Videos", "Podcasts"]}
           />
         </h1>
-        <h2 className="text-xl md:text-3xl font-medium text-neutral-300">Launch your video compaign in hours, not days</h2>
+        <h2 className="text-xl md:text-3xl font-medium text-neutral-300">Launch your video campaigns in hours, not days</h2>
         <p className="text-neutral-300 text-base md:text-xl md:text-balance">
-          Transforming ideas into compelling visual narratives for property dealers, beauty professionals, and
-          businesses across industries.
+        Video content that gets your brand noticed — from Instagram Reels to full production, based in Ludhiana, delivering nationally.
         </p>
         <LetsTalkButton href="/contact" text="Lets Talk" />
       </div>
