@@ -13,8 +13,8 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-(--section-pad) border-t border-hairline px-(--pad-x) pb-6 pt-16">
-      <div className="mx-auto max-w-[1680px]">
+    <footer className="mt-(--section-pad) border-t border-hairline pb-6 pt-16">
+      <div className="mx-auto max-w-295 px-8">
         <div className="mb-20 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <h2 className="display mb-5 text-4xl md:text-5xl">
@@ -94,8 +94,17 @@ export function Footer() {
           <span>
             © {year} {brand.full}
           </span>
-          <span>DELIVERED FROM CLOUDFLARE R2</span>
-          <span>v4.0.0</span>
+          <span>
+            Made with love by{" "}
+            <a
+              href="https://parmjeetmishra.com"
+              target="_blank"
+              rel="noreferrer"
+              className="underline decoration-mute underline-offset-4 transition-colors hover:text-bone hover:decoration-bone"
+            >
+              Parm
+            </a>
+          </span>
         </div>
       </div>
     </footer>
