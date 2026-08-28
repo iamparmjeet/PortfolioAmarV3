@@ -119,7 +119,7 @@ export default function AboutPage() {
           <h2 className="display mb-12 text-[clamp(32px,4.5vw,64px)]">
             Amar, <em>in action.</em>
           </h2>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-5">
             {actionReels.map((reel, i) => (
               <Reveal key={reel.id} delay={i * 0.08}>
                 <ReelCard reel={reel} label={`On set · ${String(i + 1).padStart(2, "0")}`} />

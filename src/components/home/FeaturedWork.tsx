@@ -31,7 +31,7 @@ export function FeaturedWork() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:gap-6">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 lg:gap-6">
           {homeItems.map((item, i) => (
             <Reveal key={item.id} delay={i * 0.07}>
               <VideoTile item={item} />

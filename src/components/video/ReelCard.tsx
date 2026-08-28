@@ -78,16 +78,26 @@ export function ReelCard({ reel, label, className }: ReelCardProps) {
             className="absolute inset-0 z-10"
           >
             <span className="absolute inset-0 flex items-center justify-center">
-              <span className="flex h-14 w-14 items-center justify-center rounded-full border border-white/40 bg-ink/40 text-bone backdrop-blur-sm transition-transform duration-500 group-hover:scale-110">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
+              <span className="relative flex h-14 w-14 items-center justify-center">
+                <span
+                  className="play-pulse absolute inset-0 rounded-full border border-white/25 bg-white/10"
                   aria-hidden="true"
-                >
-                  <path d="M8 5v14l11-7L8 5z" />
-                </svg>
+                />
+                <span
+                  className="play-pulse-delayed absolute inset-0 rounded-full border border-white/15"
+                  aria-hidden="true"
+                />
+                <span className="relative flex h-14 w-14 items-center justify-center rounded-full border border-white/40 bg-ink/40 text-bone backdrop-blur-sm transition-transform duration-500 group-hover:scale-110">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M8 5v14l11-7L8 5z" />
+                  </svg>
+                </span>
               </span>
             </span>
           </button>

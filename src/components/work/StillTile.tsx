@@ -29,7 +29,7 @@ export function StillTile({ image, onClick }: StillTileProps) {
         src={image.src}
         alt={image.title}
         fill
-        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 25vw"
         className="film-grade object-cover"
       />
       {/* Always visible on touch screens; hover-revealed where hover exists */}

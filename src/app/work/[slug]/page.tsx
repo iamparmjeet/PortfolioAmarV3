@@ -262,7 +262,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 <h2 className="display mb-8 text-[clamp(24px,3.5vw,44px)]">
                   One project, <em>every cut.</em>
                 </h2>
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-5">
                   {item.galleryVideos.map((video, i) => (
                     <ReelCard
                       key={video.id}
@@ -285,7 +285,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 <h2 className="display mb-8 text-[clamp(24px,3.5vw,44px)]">
                   Stills from <em>the shoot.</em>
                 </h2>
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 lg:gap-5">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 lg:gap-5">
                   {item.galleryImages.map((src, i) => (
                     <figure
                       key={src}
@@ -295,7 +295,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                         src={src}
                         alt={`${item.title} — production still ${i + 1}`}
                         fill
-                        sizes="(max-width: 640px) 50vw, 33vw"
+                        sizes="(max-width: 640px) 100vw, 33vw"
                         className="film-grade object-cover"
                       />
                       <figcaption className="pointer-events-none absolute bottom-3 left-3 rounded-sm bg-ink/60 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.14em] text-bone-dim backdrop-blur-sm">
@@ -333,7 +333,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 <h2 className="display mb-8 text-[clamp(24px,3.5vw,44px)]">
                   From the same <em>world.</em>
                 </h2>
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-5">
                   {relatedFilms.map((related) => (
                     <VideoTile key={related.id} item={related} />
                   ))}
@@ -353,7 +353,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 <h2 className="display mb-8 text-[clamp(24px,3.5vw,44px)]">
                   Frames that <em>held.</em>
                 </h2>
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-5">
                   {relatedStills.map((still) => (
                     <StillTile key={still.id} image={still} />
                   ))}

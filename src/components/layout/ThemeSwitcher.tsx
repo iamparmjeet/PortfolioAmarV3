@@ -109,14 +109,27 @@ export function ThemeSwitcher() {
         aria-label="Change color theme"
         aria-haspopup="menu"
         aria-expanded={open}
-        className="flex size-8 items-center justify-center rounded-full border border-hairline bg-surface-elevated text-bone-dim transition-colors hover:border-accent hover:text-accent md:size-9"
+        className="flex size-8 items-center justify-center rounded-full border border-hairline bg-surface-elevated transition-colors hover:border-accent md:size-9"
+        style={{ color: current.swatch }}
       >
-        {/* palette swatch preview; falls back to generic icon when not mounted */}
-        <span
-          className="size-3.5 rounded-full border border-black/10 md:size-4"
-          style={{ background: current.swatch }}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           aria-hidden="true"
-        />
+          className="size-4 md:size-[18px]"
+        >
+          <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+          <path d="M7.5 10.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+          <path d="M11.5 7.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+          <path d="M15.5 10.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        </svg>
       </button>
 
       {open && (

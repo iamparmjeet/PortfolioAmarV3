@@ -38,6 +38,29 @@ export function Header() {
     setMenuOpen(false);
   }, [pathname]);
 
+  // Prevent background scrolling while the mobile menu is open + close on Escape
+  useEffect(() => {
+    if (menuOpen) {
+      const prevOverflow = document.body.style.overflow;
+      const prevHtmlOverflow = document.documentElement.style.overflow;
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+
+      const onKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") setMenuOpen(false);
+      };
+      window.addEventListener("keydown", onKeyDown);
+
+      return () => {
+        document.body.style.overflow = prevOverflow;
+        document.documentElement.style.overflow = prevHtmlOverflow;
+        window.removeEventListener("keydown", onKeyDown);
+      };
+    }
+    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
+  }, [menuOpen]);
+
   return (
     <header
       className={cn(
@@ -56,7 +79,7 @@ export function Header() {
             priority
             className="h-9 w-9 object-contain drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)] md:h-10 md:w-10"
           />
-          <span className="hidden font-display text-[22px] tracking-tight md:inline">
+          <span className="font-display text-[20px] tracking-tight md:text-[22px]">
             Amar<em className="not-italic text-accent">.</em>
           </span>
         </Link>
@@ -92,20 +115,38 @@ export function Header() {
           <ThemeSwitcher />
           <button
             type="button"
-            aria-label="Toggle menu"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
-            className="flex flex-col gap-1.5 p-1"
+            className="relative flex h-9 w-9 items-center justify-center p-1"
           >
-            <span className="block h-px w-6 bg-bone" />
-            <span className="block h-px w-6 bg-bone" />
-            <span className="block h-px w-4 bg-bone" />
+            <span
+              className={cn(
+                "absolute block h-px w-6 bg-bone transition-all duration-300",
+                menuOpen ? "rotate-45" : "-translate-y-[7px]",
+              )}
+            />
+            <span
+              className={cn(
+                "absolute block h-px w-6 bg-bone transition-all duration-300",
+                menuOpen ? "opacity-0" : "opacity-100",
+              )}
+            />
+            <span
+              className={cn(
+                "absolute block h-px bg-bone transition-all duration-300",
+                menuOpen ? "w-6 -rotate-45" : "w-4 translate-y-[7px]",
+              )}
+            />
           </button>
         </div>
       </div>
 
       {menuOpen && (
-        <div className="fixed inset-0 top-[57px] z-30 flex flex-col bg-ink px-6 pt-10 md:hidden">
+        <div
+          className="fixed inset-0 top-[57px] z-50 flex h-[calc(100dvh-57px)] min-h-[calc(100dvh-57px)] flex-col overflow-y-auto border-t border-hairline bg-bg px-6 pt-10 md:hidden"
+          style={{ backgroundColor: "var(--color-bg)" }}
+        >
           {navLinks.map((link) => (
             <Link
               key={link.href}
