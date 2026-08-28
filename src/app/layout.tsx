@@ -1,4 +1,3 @@
-import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans, Space_Mono } from "next/font/google";
 import Script from "next/script";
@@ -110,7 +109,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <FloatingWhatsApp />
           <AmarChat />
         </ThemeProvider>
-        <Analytics />
         <Script
           defer
           src="https://umami.parmjeetmishra.com/script.js"
