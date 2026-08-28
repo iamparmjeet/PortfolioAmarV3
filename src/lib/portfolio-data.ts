@@ -502,12 +502,17 @@ export const allPortfolioItems: PortfolioItem[] = rawItems.map((item) => {
     id: slug,
     thumbnail: item.mediaUrl,
     posterUrl: item.mediaUrl ? item.mediaUrl.replace("master.m3u8", "master.webp") : "",
-    blurUrl: item.mediaUrl ? item.mediaUrl.replace("master.m3u8", "blur-thumbnail.webp") : "",
+    // blur-thumbnail.webp is not guaranteed on R2 for all assets (e.g. astro-talk/3
+    // and amar-in-action 1-4 return 404); keep empty so VideoTile skips the
+    // blur layer instead of hitting /_next/image?.../blur-thumbnail.webp → 404.
+    // Re-enable `replace("master.m3u8","blur-thumbnail.webp")` once the R2
+    // backfill upload is complete.
+    blurUrl: "",
     galleryVideos: (galleryVideoUrls ?? []).map((url, i) => ({
       id: `${slug}-film-${i + 1}`,
       mediaUrl: url,
       posterUrl: url.replace("master.m3u8", "master.webp"),
-      blurUrl: url.replace("master.m3u8", "blur-thumbnail.webp"),
+      blurUrl: "",
     })),
   };
 });

@@ -29,18 +29,24 @@ const cormorant = Cormorant_Garamond({
   weight: ["300", "400", "600"],
   style: ["normal", "italic"],
   variable: "--font-cormorant",
+  display: "swap",
+  preload: true,
 });
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "700"],
+  weight: ["400", "500", "700"],
   variable: "--font-dm-sans",
+  display: "swap",
+  preload: true,
 });
 
 const spaceMono = Space_Mono({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-space-mono",
+  display: "swap",
+  preload: false,
 });
 
 const description =

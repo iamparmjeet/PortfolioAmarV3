@@ -17,12 +17,15 @@ export interface PipePublicVideo {
   formats: Record<string, unknown>;
 }
 
-/** Derive R2 poster/blur URLs from an HLS master URL using the pipeline convention. */
+/** Derive R2 poster URL from an HLS master URL using the pipeline convention. */
 function derivePosterUrls(hlsUrl: string): { posterUrl: string; blurUrl: string } {
   if (!hlsUrl) return { posterUrl: "", blurUrl: "" };
+  // poster is reliably generated; blur-thumbnail.webp is not yet guaranteed
+  // on R2 for all assets (see data.ts / portfolio-data.ts) — leave blur empty
+  // so callers skip the extra /_next/image request until the backfill lands.
   return {
     posterUrl: hlsUrl.replace("master.m3u8", "master.webp"),
-    blurUrl: hlsUrl.replace("master.m3u8", "blur-thumbnail.webp"),
+    blurUrl: "",
   };
 }
 

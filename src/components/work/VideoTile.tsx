@@ -60,8 +60,8 @@ export function VideoTile({ item }: VideoTileProps) {
         ) : hasMedia ? (
           <>
             {/* Blur thumbnail paints first; full poster fades in over it.
-                Not every video has one on R2 yet — hide it if it 404s. */}
-            {!blurFailed && (
+                Not every video has one on R2 yet — skip or hide if missing/404. */}
+            {item.blurUrl && item.blurUrl !== item.posterUrl && !blurFailed && (
               <Image
                 src={item.blurUrl}
                 alt=""
