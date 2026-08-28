@@ -6,6 +6,8 @@ import { CustomCursor } from "@/components/layout/CustomCursor";
 import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { ThemeProvider } from "@/components/theme-provider";
+import { DEFAULT_PALETTE, PALETTE_IDS } from "@/constants/themes";
 import { brand, HeroImg, socialLinks } from "@/lib/data";
 import "./globals.css";
 
@@ -50,6 +52,15 @@ export const metadata: Metadata = {
   },
   description,
   metadataBase: new URL("https://amarjeetmishra.com"),
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon.png", type: "image/png", sizes: "400x400" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "400x400", type: "image/png" }],
+    shortcut: "/favicon.ico",
+  },
   openGraph: {
     type: "website",
     siteName: "Amar Editz",
@@ -64,20 +75,34 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${dmSans.variable} ${spaceMono.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${cormorant.variable} ${dmSans.variable} ${spaceMono.variable}`}
+    >
       <body>
         <script
           type="application/ld+json"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD, no user input
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        <div className="grain" aria-hidden="true" />
-        <CustomCursor />
-        <Header />
-        {children}
-        <Footer />
-        <FloatingWhatsApp />
-        <AmarChat />
+        <ThemeProvider
+          attribute="class"
+          themes={PALETTE_IDS}
+          defaultTheme={DEFAULT_PALETTE}
+          enableSystem={false}
+          enableColorScheme={false}
+          disableTransitionOnChange
+          storageKey="palette"
+        >
+          <div className="grain" aria-hidden="true" />
+          <CustomCursor />
+          <Header />
+          {children}
+          <Footer />
+          <FloatingWhatsApp />
+          <AmarChat />
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

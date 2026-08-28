@@ -43,6 +43,458 @@
   /* Layout rhythm from Design A */
   --pad-x: clamp(20px, 4vw, 64px);
   --section-pad: clamp(80px, 11vh, 160px);
+
+  /* Shared secondary/highlight tokens (defaults match noir) */
+  --color-secondary: #6aaaf0;
+  --color-highlight: #d4a43c;
+  --color-nav-bg: rgba(8, 7, 6, 0.92);
+  --color-destructive: #c0392b;
+
+  /* Compatibility aliases for portfolio-parm token names */
+  --bg: var(--color-bg);
+  --paper: var(--color-surface);
+  --ink: var(--color-text-primary);
+  --ink-soft: var(--color-text-secondary);
+  --ink-muted: var(--color-text-muted);
+  --rule: var(--color-border);
+  --rule-soft: var(--color-border-strong);
+  --accent: var(--color-accent);
+  --accent-tint: var(--color-accent-soft);
+  --secondary: var(--color-secondary);
+  --highlight: var(--color-highlight);
+  --nav-bg: var(--color-nav-bg);
+  --destructive: var(--color-destructive);
+}
+
+/* ── Palettes — 12 editorial themes ported from portfolio-parm ──
+   Each class overrides :root tokens. next-themes applies the active
+   palette-* class to <html>. Kept in sync with src/constants/themes.ts. */
+
+/* Light */
+.palette-cream {
+  --color-bg: #f3ead4;
+  --color-surface: #faf4e1;
+  --color-surface-elevated: #fffaf0;
+  --color-accent: #d6446b;
+  --color-accent-dim: #e85a7d;
+  --color-accent-soft: rgba(214, 68, 107, 0.08);
+  --color-accent-line: rgba(214, 68, 107, 0.28);
+  --color-text-primary: #1d1814;
+  --color-text-secondary: #4a3f33;
+  --color-text-muted: #857664;
+  --color-border: #d6c7a3;
+  --color-border-strong: #e5d9b8;
+  --color-secondary: #1e4eb3;
+  --color-highlight: #f3cf57;
+  --color-nav-bg: rgba(243, 234, 212, 0.86);
+  --bg: #f3ead4;
+  --paper: #faf4e1;
+  --ink: #1d1814;
+  --ink-soft: #4a3f33;
+  --ink-muted: #857664;
+  --rule: #d6c7a3;
+  --rule-soft: #e5d9b8;
+  --accent: #d6446b;
+  --accent-tint: rgba(214, 68, 107, 0.08);
+  --secondary: #1e4eb3;
+  --highlight: #f3cf57;
+  --nav-bg: rgba(243, 234, 212, 0.86);
+}
+
+.palette-ivory {
+  --color-bg: #f1ebde;
+  --color-surface: #fbf6ea;
+  --color-surface-elevated: #fffdf6;
+  --color-accent: #bf3a4f;
+  --color-accent-dim: #d44e62;
+  --color-accent-soft: rgba(191, 58, 79, 0.08);
+  --color-accent-line: rgba(191, 58, 79, 0.28);
+  --color-text-primary: #1a1714;
+  --color-text-secondary: #4c443b;
+  --color-text-muted: #8a7f70;
+  --color-border: #d8ceb7;
+  --color-border-strong: #e8dec8;
+  --color-secondary: #1f4f8a;
+  --color-highlight: #e9c64a;
+  --color-nav-bg: rgba(241, 235, 222, 0.88);
+  --bg: #f1ebde;
+  --paper: #fbf6ea;
+  --ink: #1a1714;
+  --ink-soft: #4c443b;
+  --ink-muted: #8a7f70;
+  --rule: #d8ceb7;
+  --rule-soft: #e8dec8;
+  --accent: #bf3a4f;
+  --accent-tint: rgba(191, 58, 79, 0.08);
+  --secondary: #1f4f8a;
+  --highlight: #e9c64a;
+  --nav-bg: rgba(241, 235, 222, 0.88);
+}
+
+.palette-slate {
+  --color-bg: #eaecf2;
+  --color-surface: #f2f4f8;
+  --color-surface-elevated: #f8f9fb;
+  --color-accent: #e83e6c;
+  --color-accent-dim: #f0557f;
+  --color-accent-soft: rgba(232, 62, 108, 0.08);
+  --color-accent-line: rgba(232, 62, 108, 0.28);
+  --color-text-primary: #0d1520;
+  --color-text-secondary: #354460;
+  --color-text-muted: #7a8898;
+  --color-border: #c2cad8;
+  --color-border-strong: #d8dfe8;
+  --color-secondary: #1a50c8;
+  --color-highlight: #ffd04a;
+  --color-nav-bg: rgba(234, 236, 242, 0.88);
+  --bg: #eaecf2;
+  --paper: #f2f4f8;
+  --ink: #0d1520;
+  --ink-soft: #354460;
+  --ink-muted: #7a8898;
+  --rule: #c2cad8;
+  --rule-soft: #d8dfe8;
+  --accent: #e83e6c;
+  --accent-tint: rgba(232, 62, 108, 0.08);
+  --secondary: #1a50c8;
+  --highlight: #ffd04a;
+  --nav-bg: rgba(234, 236, 242, 0.88);
+}
+
+.palette-saffron {
+  --color-bg: #f5e8b8;
+  --color-surface: #fdf3cc;
+  --color-surface-elevated: #fff8db;
+  --color-accent: #c03a24;
+  --color-accent-dim: #d94a30;
+  --color-accent-soft: rgba(192, 58, 36, 0.09);
+  --color-accent-line: rgba(192, 58, 36, 0.28);
+  --color-text-primary: #1a120a;
+  --color-text-secondary: #4a3520;
+  --color-text-muted: #8a7050;
+  --color-border: #d4b84a;
+  --color-border-strong: #e4cc7a;
+  --color-secondary: #1a44a0;
+  --color-highlight: #1a120a;
+  --color-nav-bg: rgba(245, 232, 184, 0.88);
+  --bg: #f5e8b8;
+  --paper: #fdf3cc;
+  --ink: #1a120a;
+  --ink-soft: #4a3520;
+  --ink-muted: #8a7050;
+  --rule: #d4b84a;
+  --rule-soft: #e4cc7a;
+  --accent: #c03a24;
+  --accent-tint: rgba(192, 58, 36, 0.09);
+  --secondary: #1a44a0;
+  --highlight: #1a120a;
+  --nav-bg: rgba(245, 232, 184, 0.88);
+}
+
+.palette-mint {
+  --color-bg: #eef2e6;
+  --color-surface: #f7f9ee;
+  --color-surface-elevated: #fbfcf7;
+  --color-accent: #c2493f;
+  --color-accent-dim: #d65e54;
+  --color-accent-soft: rgba(194, 73, 63, 0.08);
+  --color-accent-line: rgba(194, 73, 63, 0.28);
+  --color-text-primary: #1c1f17;
+  --color-text-secondary: #3f463a;
+  --color-text-muted: #7e8773;
+  --color-border: #cdd5b9;
+  --color-border-strong: #deebca;
+  --color-secondary: #2f5e3e;
+  --color-highlight: #ebbe44;
+  --color-nav-bg: rgba(238, 242, 230, 0.88);
+  --bg: #eef2e6;
+  --paper: #f7f9ee;
+  --ink: #1c1f17;
+  --ink-soft: #3f463a;
+  --ink-muted: #7e8773;
+  --rule: #cdd5b9;
+  --rule-soft: #deebca;
+  --accent: #c2493f;
+  --accent-tint: rgba(194, 73, 63, 0.08);
+  --secondary: #2f5e3e;
+  --highlight: #ebbe44;
+  --nav-bg: rgba(238, 242, 230, 0.88);
+}
+
+.palette-rose {
+  --color-bg: #f1e6e0;
+  --color-surface: #faefe9;
+  --color-surface-elevated: #fff5f0;
+  --color-accent: #a8324e;
+  --color-accent-dim: #c03e5e;
+  --color-accent-soft: rgba(168, 50, 78, 0.08);
+  --color-accent-line: rgba(168, 50, 78, 0.28);
+  --color-text-primary: #1f1611;
+  --color-text-secondary: #4f3f36;
+  --color-text-muted: #8a7468;
+  --color-border: #d8c0b4;
+  --color-border-strong: #ead5c8;
+  --color-secondary: #1d4486;
+  --color-highlight: #e7b240;
+  --color-nav-bg: rgba(241, 230, 224, 0.88);
+  --bg: #f1e6e0;
+  --paper: #faefe9;
+  --ink: #1f1611;
+  --ink-soft: #4f3f36;
+  --ink-muted: #8a7468;
+  --rule: #d8c0b4;
+  --rule-soft: #ead5c8;
+  --accent: #a8324e;
+  --accent-tint: rgba(168, 50, 78, 0.08);
+  --secondary: #1d4486;
+  --highlight: #e7b240;
+  --nav-bg: rgba(241, 230, 224, 0.88);
+}
+
+/* In-between */
+.palette-amber {
+  --color-bg: #3a2a18;
+  --color-surface: #4a3824;
+  --color-surface-elevated: #5a4430;
+  --color-accent: #f0a040;
+  --color-accent-dim: #f5b55a;
+  --color-accent-soft: rgba(240, 160, 64, 0.15);
+  --color-accent-line: rgba(240, 160, 64, 0.32);
+  --color-text-primary: #f5e4c0;
+  --color-text-secondary: #d0b888;
+  --color-text-muted: #9a8058;
+  --color-border: #6a4c30;
+  --color-border-strong: #523c24;
+  --color-secondary: #7ab8f0;
+  --color-highlight: #f5e4c0;
+  --color-nav-bg: rgba(58, 42, 24, 0.9);
+  --bg: #3a2a18;
+  --paper: #4a3824;
+  --ink: #f5e4c0;
+  --ink-soft: #d0b888;
+  --ink-muted: #9a8058;
+  --rule: #6a4c30;
+  --rule-soft: #523c24;
+  --accent: #f0a040;
+  --accent-tint: rgba(240, 160, 64, 0.15);
+  --secondary: #7ab8f0;
+  --highlight: #f5e4c0;
+  --nav-bg: rgba(58, 42, 24, 0.9);
+}
+
+/* Dark */
+.palette-night {
+  --color-bg: #1a1410;
+  --color-surface: #231b15;
+  --color-surface-elevated: #2e241c;
+  --color-accent: #f06a8b;
+  --color-accent-dim: #f5859f;
+  --color-accent-soft: rgba(240, 106, 139, 0.12);
+  --color-accent-line: rgba(240, 106, 139, 0.3);
+  --color-text-primary: #f3ead4;
+  --color-text-secondary: #c9bda1;
+  --color-text-muted: #857664;
+  --color-border: #3a2e23;
+  --color-border-strong: #2c2218;
+  --color-secondary: #7aa7ff;
+  --color-highlight: #f3cf57;
+  --color-nav-bg: rgba(26, 20, 16, 0.88);
+  --bg: #1a1410;
+  --paper: #231b15;
+  --ink: #f3ead4;
+  --ink-soft: #c9bda1;
+  --ink-muted: #857664;
+  --rule: #3a2e23;
+  --rule-soft: #2c2218;
+  --accent: #f06a8b;
+  --accent-tint: rgba(240, 106, 139, 0.12);
+  --secondary: #7aa7ff;
+  --highlight: #f3cf57;
+  --nav-bg: rgba(26, 20, 16, 0.88);
+}
+
+.palette-coal {
+  --color-bg: #0f1115;
+  --color-surface: #171a20;
+  --color-surface-elevated: #1e232c;
+  --color-accent: #ff5c8a;
+  --color-accent-dim: #ff7a9e;
+  --color-accent-soft: rgba(255, 92, 138, 0.12);
+  --color-accent-line: rgba(255, 92, 138, 0.3);
+  --color-text-primary: #e8ebef;
+  --color-text-secondary: #b7bdc7;
+  --color-text-muted: #7b8290;
+  --color-border: #2a2f38;
+  --color-border-strong: #1f242c;
+  --color-secondary: #7aa7ff;
+  --color-highlight: #f0c14b;
+  --color-nav-bg: rgba(15, 17, 21, 0.9);
+  --bg: #0f1115;
+  --paper: #171a20;
+  --ink: #e8ebef;
+  --ink-soft: #b7bdc7;
+  --ink-muted: #7b8290;
+  --rule: #2a2f38;
+  --rule-soft: #1f242c;
+  --accent: #ff5c8a;
+  --accent-tint: rgba(255, 92, 138, 0.12);
+  --secondary: #7aa7ff;
+  --highlight: #f0c14b;
+  --nav-bg: rgba(15, 17, 21, 0.9);
+}
+
+.palette-noir {
+  --color-bg: #080706;
+  --color-surface: #111009;
+  --color-surface-elevated: #1a1714;
+  --color-accent: #d4a43c;
+  --color-accent-dim: #e5b25c;
+  --color-accent-soft: rgba(212, 164, 60, 0.14);
+  --color-accent-line: rgba(212, 164, 60, 0.28);
+  --color-text-primary: #f0e8d4;
+  --color-text-secondary: #c8b89a;
+  --color-text-muted: #7a6a50;
+  --color-border: #272018;
+  --color-border-strong: #1c1710;
+  --color-secondary: #6aaaf0;
+  --color-highlight: #d4a43c;
+  --color-nav-bg: rgba(8, 7, 6, 0.92);
+  --bg: #080706;
+  --paper: #111009;
+  --ink: #f0e8d4;
+  --ink-soft: #c8b89a;
+  --ink-muted: #7a6a50;
+  --rule: #272018;
+  --rule-soft: #1c1710;
+  --accent: #d4a43c;
+  --accent-tint: rgba(212, 164, 60, 0.14);
+  --secondary: #6aaaf0;
+  --highlight: #d4a43c;
+  --nav-bg: rgba(8, 7, 6, 0.92);
+}
+
+.palette-ocean {
+  --color-bg: #080f1c;
+  --color-surface: #0d1628;
+  --color-surface-elevated: #111f38;
+  --color-accent: #00c99a;
+  --color-accent-dim: #1ad4a8;
+  --color-accent-soft: rgba(0, 201, 154, 0.12);
+  --color-accent-line: rgba(0, 201, 154, 0.3);
+  --color-text-primary: #cce0f8;
+  --color-text-secondary: #80a8cc;
+  --color-text-muted: #456080;
+  --color-border: #162240;
+  --color-border-strong: #0e1830;
+  --color-secondary: #7878ec;
+  --color-highlight: #f0c030;
+  --color-nav-bg: rgba(8, 15, 28, 0.92);
+  --bg: #080f1c;
+  --paper: #0d1628;
+  --ink: #cce0f8;
+  --ink-soft: #80a8cc;
+  --ink-muted: #456080;
+  --rule: #162240;
+  --rule-soft: #0e1830;
+  --accent: #00c99a;
+  --accent-tint: rgba(0, 201, 154, 0.12);
+  --secondary: #7878ec;
+  --highlight: #f0c030;
+  --nav-bg: rgba(8, 15, 28, 0.92);
+}
+
+.palette-studio {
+  --color-bg: #050505;
+  --color-surface: #0d0d0d;
+  --color-surface-elevated: #171717;
+  --color-accent: #b8f020;
+  --color-accent-dim: #c8f540;
+  --color-accent-soft: rgba(184, 240, 32, 0.12);
+  --color-accent-line: rgba(184, 240, 32, 0.3);
+  --color-text-primary: #f4f3ee;
+  --color-text-secondary: #a8a8a0;
+  --color-text-muted: #585852;
+  --color-border: #1a1a18;
+  --color-border-strong: #121210;
+  --color-secondary: #4a8fff;
+  --color-highlight: #b8f020;
+  --color-nav-bg: rgba(5, 5, 5, 0.94);
+  --bg: #050505;
+  --paper: #0d0d0d;
+  --ink: #f4f3ee;
+  --ink-soft: #a8a8a0;
+  --ink-muted: #585852;
+  --rule: #1a1a18;
+  --rule-soft: #121210;
+  --accent: #b8f020;
+  --accent-tint: rgba(184, 240, 32, 0.12);
+  --secondary: #4a8fff;
+  --highlight: #b8f020;
+  --nav-bg: rgba(5, 5, 5, 0.94);
+}
+
+/* ── View Transitions — theme switch animations ──
+   ThemeSwitcher picks a random animation per swap and tags <html> with
+   data-theme-anim. The old snapshot stays put while the new palette is revealed. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 0;
+}
+
+::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* wipe — new palette sweeps in from the left. */
+:root[data-theme-anim="wipe"]::view-transition-new(root) {
+  animation: theme-wipe 500ms cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+@keyframes theme-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* blur — new palette fades up out of a soft blur. */
+:root[data-theme-anim="blur"]::view-transition-new(root) {
+  animation: theme-blur 520ms ease both;
+}
+
+@keyframes theme-blur {
+  from {
+    opacity: 0;
+    filter: blur(12px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* slide — new palette rises up over the old. */
+:root[data-theme-anim="slide"]::view-transition-new(root) {
+  animation: theme-slide 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes theme-slide {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
 }
 
 @theme inline {
@@ -58,6 +510,16 @@
   --color-mute: var(--color-text-muted);
   --color-hairline: var(--color-border);
   --color-hairline-strong: var(--color-border-strong);
+  --color-bg: var(--color-bg);
+  --color-paper: var(--color-surface);
+  --color-ink-soft: var(--color-text-secondary);
+  --color-ink-muted: var(--color-text-muted);
+  --color-rule: var(--color-border);
+  --color-rule-soft: var(--color-border-strong);
+  --color-accent-tint: var(--color-accent-soft);
+  --color-secondary: var(--color-secondary);
+  --color-highlight: var(--color-highlight);
+  --color-nav-bg: var(--color-nav-bg);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
   --font-mono: var(--font-mono);
@@ -106,6 +568,7 @@ body {
   *,
   *::before,
   *::after {
+    /* biome-ignore lint/complexity/noImportantStyles: necessary to force disable all transitions on reduced motion */
     transition-duration: 0.01ms !important;
   }
 }
