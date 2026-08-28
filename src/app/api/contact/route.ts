@@ -60,35 +60,90 @@ const contactSchema = z.object({
   projectType: z.string().trim().max(50).optional(),
   budget: z.string().trim().max(50).optional(),
   timeline: z.string().trim().max(50).optional(),
+  // Canonical Spin field + legacy: backend accepts both
   turnstileToken: z.string().optional(),
+  "cf-turnstile-response": z.string().optional(),
+  "cf_turnstile_response": z.string().optional(),
   startedAt: z.number().optional(), // client timestamp for timing check
 });
 
-// ── Turnstile server verification (Cloudflare — FREE, unlimited) ──
-async function verifyTurnstile(token: string, ip: string): Promise<boolean> {
-  const secret = process.env.TURNSTILE_SECRET_KEY;
-  if (!secret) return true; // not configured -> skip (dev mode)
-  if (!token) return false;
+// ── Turnstile server verification — canonical Spin siteverify ──
+// Secret lives in TURNSTILE_SECRET (Spin) with fallback to TURNSTILE_SECRET_KEY (legacy)
+// Hostnames allowlist lives in TURNSTILE_HOSTNAMES (comma-separated). When absent,
+// we skip hostname check in dev but require success + action.
+type SiteVerifyResult = {
+  success: boolean;
+  hostname?: string;
+  action?: string;
+  "error-codes"?: string[];
+};
 
+async function verifyTurnstile(
+  token: string,
+  ip: string,
+): Promise<{ ok: boolean; result?: SiteVerifyResult; error?: string }> {
+  const secret = process.env.TURNSTILE_SECRET ?? process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) return { ok: true }; // not configured -> skip (dev mode)
+
+  const expectedAction = "contact";
+  const expectedHostnames = new Set(
+    (process.env.TURNSTILE_HOSTNAMES ?? "")
+      .split(",")
+      .map((h) => h.trim())
+      .filter(Boolean),
+  );
+
+  // Spin token hygiene — reject obviously invalid tokens before hitting Cloudflare
+  if (typeof token !== "string" || token.length === 0 || token.length > 2048) {
+    return { ok: false, error: "missing-token" };
+  }
+  if (expectedHostnames.size === 0) {
+    console.warn(
+      "[contact] TURNSTILE_HOSTNAMES is empty — skipping hostname check. Set it to e.g. amarjeetmishra.com,www.amarjeetmishra.com in production.",
+    );
+  }
+
+  let result: SiteVerifyResult;
   try {
-    const formData = new FormData();
-    formData.append("secret", secret);
-    formData.append("response", token);
-    if (ip && ip !== "unknown") formData.append("remoteip", ip);
-
+    const body = new URLSearchParams({
+      secret,
+      response: token,
+      ...(ip && ip !== "unknown" ? { remoteip: ip } : {}),
+    });
     const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
       method: "POST",
-      body: formData,
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      signal: AbortSignal.timeout(10_000),
+      body,
     });
-    const data = (await res.json()) as { success: boolean; "error-codes"?: string[] };
-    if (!data.success) {
-      console.warn("[contact] Turnstile verify failed", data["error-codes"]);
-    }
-    return data.success;
+    if (!res.ok) throw new Error(`siteverify ${res.status}`);
+    result = (await res.json()) as SiteVerifyResult;
   } catch (err) {
     console.error("[contact] Turnstile verify error", err);
-    return false;
+    return { ok: false, error: "verify-failed" };
   }
+
+  if (!result.success) {
+    console.warn("[contact] Turnstile verify failed", result["error-codes"]);
+    return { ok: false, result, error: result["error-codes"]?.join(",") ?? "invalid-token" };
+  }
+  // Canonical Spin: require action + hostname match
+  if (result.action !== expectedAction) {
+    console.warn("[contact] Turnstile action mismatch", {
+      expected: expectedAction,
+      got: result.action,
+    });
+    return { ok: false, result, error: "action-mismatch" };
+  }
+  if (expectedHostnames.size > 0 && result.hostname && !expectedHostnames.has(result.hostname)) {
+    console.warn("[contact] Turnstile hostname not allowlisted", {
+      hostname: result.hostname,
+      allowlist: [...expectedHostnames],
+    });
+    return { ok: false, result, error: "hostname-mismatch" };
+  }
+
+  return { ok: true, result };
 }
 
 export async function POST(req: NextRequest) {
@@ -113,9 +168,14 @@ export async function POST(req: NextRequest) {
     projectType,
     budget,
     timeline,
-    turnstileToken,
     startedAt,
   } = parsed.data;
+  // Canonical Spin token field + legacy fallbacks
+  const turnstileToken =
+    (parsed.data["cf-turnstile-response"] as string | undefined) ??
+    (parsed.data["cf_turnstile_response"] as string | undefined) ??
+    parsed.data.turnstileToken ??
+    "";
 
   // 1. Honeypot — invisible "website" field. Return fake success so bots don't adapt.
   if (website && website.trim() !== "") {
@@ -151,15 +211,20 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 4. Turnstile verification (FREE Cloudflare — https://dash.cloudflare.com/?to=/:account/turnstile)
-  // Only enforced when TURNSTILE_SECRET_KEY is set. Absence = dev/bypass mode.
-  if (process.env.TURNSTILE_SECRET_KEY) {
-    const ok = await verifyTurnstile(turnstileToken ?? "", ip);
+  // 4. Turnstile verification — canonical Spin siteverify
+  // Gate: browser → your backend → siteverify. Require success + action + hostname.
+  // Secret lives in TURNSTILE_SECRET (Spin) with fallback to TURNSTILE_SECRET_KEY (legacy).
+  const turnstileSecret = process.env.TURNSTILE_SECRET ?? process.env.TURNSTILE_SECRET_KEY;
+  if (turnstileSecret) {
+    const { ok, error } = await verifyTurnstile(turnstileToken, ip);
     if (!ok) {
-      return NextResponse.json(
-        { error: "Spam check failed — please refresh and try again." },
-        { status: 403 },
-      );
+      const msg =
+        error === "action-mismatch" || error === "hostname-mismatch"
+          ? "Spam check failed — please refresh and try again."
+          : error === "missing-token"
+            ? "Spam check missing — please complete the challenge."
+            : "Spam check failed — please refresh and try again.";
+      return NextResponse.json({ error: msg }, { status: 403 });
     }
   }
 

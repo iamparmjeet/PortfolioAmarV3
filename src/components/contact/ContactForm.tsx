@@ -42,18 +42,40 @@ export function ContactForm() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  // Turnstile + timing gate
+  // Turnstile + timing gate — canonical Spin: action "contact", token single-use
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileError, setTurnstileError] = useState<string | null>(null);
   const startedAtRef = useRef<number>(Date.now());
+  const widgetIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     startedAtRef.current = Date.now();
   }, []);
 
   const emailValid = email === "" || EMAIL_RE.test(email.trim());
+  // 110200 = Domain not authorized — happens on localhost if widget not allowlisted.
+  const isDomainError = turnstileError === "110200";
   const needsTurnstile = siteKey.length > 0;
   const canSubmit = !needsTurnstile || !!turnstileToken;
+
+  const resetTurnstile = () => {
+    setTurnstileToken(null);
+    const id = widgetIdRef.current;
+    if (id && typeof window !== "undefined" && window.turnstile) {
+      try {
+        window.turnstile.reset(id);
+      } catch {}
+    }
+  };
+
+  const handleTurnstileError = (code?: string | number) => {
+    const codeStr = code !== undefined ? String(code) : "unknown";
+    setTurnstileError(codeStr);
+    // Don't reset on 110200 — retry would immediately fail again and spam console
+    if (codeStr === "110200") return;
+    resetTurnstile();
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,6 +111,8 @@ export function ContactForm() {
           timeline,
           message: message.trim(),
           website,
+          // Canonical Spin field + legacy fallback — backend accepts both
+          "cf-turnstile-response": turnstileToken ?? undefined,
           turnstileToken: turnstileToken ?? undefined,
           startedAt: startedAtRef.current,
         }),
@@ -99,10 +123,13 @@ export function ContactForm() {
       } else {
         setStatus("error");
         setErrorMsg(data.error ?? "Something broke in the cut — please try again.");
+        // Token is single-use — reset widget so user can retry (Spin requirement)
+        resetTurnstile();
       }
     } catch {
       setStatus("error");
       setErrorMsg("Network error — please try again or email directly.");
+      resetTurnstile();
     }
   };
 
@@ -254,16 +281,28 @@ export function ContactForm() {
         <div className="pt-2">
           <TurnstileWidget
             siteKey={siteKey}
+            action="contact"
+            widgetIdRef={widgetIdRef}
             onVerify={(token) => {
               setTurnstileToken(token);
+              setTurnstileError(null);
               setErrorMsg(null);
             }}
-            onExpire={() => setTurnstileToken(null)}
-            onError={() => setTurnstileToken(null)}
+            onExpire={() => resetTurnstile()}
+            onError={handleTurnstileError}
           />
-          <p className="mt-2 font-mono text-[10px] tracking-[0.08em] text-mute">
-            Protected by Cloudflare Turnstile · privacy-friendly, no tracking
-          </p>
+          {isDomainError ? (
+            <p className="mt-2 font-mono text-[10px] leading-relaxed text-amber-400">
+              Turnstile blocked (110200: Domain not authorized). Add{" "}
+              <code>localhost</code> and <code>127.0.0.1</code> in Cloudflare Dashboard → Turnstile →
+              widget <code>0x4AAAAAAEfo8bL0jz-tH5kM</code> → Hostname Management. For local dev you can
+              temporarily unset <code>TURNSTILE_SECRET</code> to bypass.
+            </p>
+          ) : (
+            <p className="mt-2 font-mono text-[10px] tracking-[0.08em] text-mute">
+              Protected by Cloudflare Turnstile · privacy-friendly, no tracking
+            </p>
+          )}
         </div>
       ) : (
         <p className="rounded-sm border border-dashed border-hairline-strong bg-paper px-3 py-2 font-mono text-[10px] leading-relaxed text-mute">

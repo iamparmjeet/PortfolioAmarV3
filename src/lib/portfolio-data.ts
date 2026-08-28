@@ -131,16 +131,6 @@ const rawItems: RawItem[] = [
       `${CDN_URL}/assets/images/interior/8.webp`,
     ],
   },
-  // Soorma FC — real client; full case study planned.
-  // TODO: populate mediaUrl (R2 HLS), brief, approach, deliverables, results.
-  {
-    title: "Soorma FC",
-    category: "sports",
-    mediaUrl: "",
-    type: "video",
-    client: "Soorma FC",
-    year: "2025",
-  },
   {
     title: "Acadour Perfumes",
     category: "perfumes",
@@ -517,7 +507,7 @@ export const allPortfolioItems: PortfolioItem[] = rawItems.map((item) => {
   };
 });
 
-/** The six projects featured on the home page (plus Soorma FC once media lands). */
+/** The six projects featured on the home page. */
 export const homeItems: PortfolioItem[] = allPortfolioItems.slice(0, 6);
 
 export function getItemBySlug(slug: string): PortfolioItem | undefined {

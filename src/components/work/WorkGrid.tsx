@@ -123,14 +123,14 @@ function WorkGridInner() {
       </div>
 
       {mode === "films" ? (
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-5">
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-3 lg:gap-5">
           {filteredFilms.map((item) => (
             <VideoTile key={item.id} item={item} />
           ))}
         </div>
       ) : (
         <>
-          <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-5">
+          <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-3 lg:gap-5">
             {filteredStills.map((img, i) => (
               <StillTile key={img.id} image={img} onClick={() => openLightbox(i)} />
             ))}

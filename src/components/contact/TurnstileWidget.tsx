@@ -9,11 +9,15 @@ declare global {
         el: string | HTMLElement,
         opts: {
           sitekey: string;
+          action?: string;
           callback?: (token: string) => void;
           "expired-callback"?: () => void;
-          "error-callback"?: () => void;
+          "error-callback"?: (code: string | number) => boolean | void;
+          "timeout-callback"?: () => void;
           theme?: "light" | "dark" | "auto";
           size?: "normal" | "compact";
+          retry?: "auto" | "never";
+          "retry-interval"?: number;
         },
       ) => string;
       reset: (widgetId?: string) => void;
@@ -25,15 +29,28 @@ declare global {
 
 type Props = {
   siteKey: string;
+  action?: string;
   onVerify: (token: string) => void;
   onExpire?: () => void;
-  onError?: () => void;
+  onError?: (code?: string | number) => void;
   theme?: "light" | "dark" | "auto";
+  widgetIdRef?: React.MutableRefObject<string | null>;
 };
 
-export function TurnstileWidget({ siteKey, onVerify, onExpire, onError, theme = "auto" }: Props) {
+const TURNSTILE_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+
+export function TurnstileWidget({
+  siteKey,
+  action = "contact",
+  onVerify,
+  onExpire,
+  onError,
+  theme = "auto",
+  widgetIdRef: externalRef,
+}: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const widgetIdRef = useRef<string | null>(null);
+  const internalIdRef = useRef<string | null>(null);
+  const widgetIdRef = externalRef ?? internalIdRef;
   const onVerifyRef = useRef(onVerify);
   const onExpireRef = useRef(onExpire);
   const onErrorRef = useRef(onError);
@@ -59,11 +76,27 @@ export function TurnstileWidget({ siteKey, onVerify, onExpire, onError, theme = 
       container.innerHTML = "";
       widgetIdRef.current = window.turnstile.render(container, {
         sitekey: siteKey,
+        action,
         callback: (token: string) => onVerifyRef.current(token),
         "expired-callback": () => onExpireRef.current?.(),
-        "error-callback": () => onErrorRef.current?.(),
+        "error-callback": (code: string | number) => {
+          // Report once, then suppress Turnstile's default console warning (return true)
+          // 110200 = Domain not authorized — add localhost/127.0.0.1 in Cloudflare dashboard
+          if (String(code) === "110200") {
+            console.warn(
+              "[Turnstile] 110200 Domain not authorized for",
+              window.location.hostname,
+              "— add this hostname in dash.cloudflare.com > Turnstile > widget > Hostname Management",
+            );
+          }
+          onErrorRef.current?.(code);
+          return true;
+        },
+        "timeout-callback": () => onExpireRef.current?.(),
         theme,
         size: "normal",
+        retry: "auto",
+        "retry-interval": 8000,
       });
     };
 
@@ -81,28 +114,33 @@ export function TurnstileWidget({ siteKey, onVerify, onExpire, onError, theme = 
       };
     }
 
-    // Inject script once
-    const existing = document.querySelector<HTMLScriptElement>(
+    // Inject script once (explicit render)
+    const existing = document.querySelector<HTMLScriptElement>(`script[src="${TURNSTILE_SRC}"]`);
+    // Also check legacy URL without query param for backwards compat
+    const legacy = document.querySelector<HTMLScriptElement>(
       'script[src="https://challenges.cloudflare.com/turnstile/v0/api.js"]',
     );
-    if (!existing) {
+    const found = existing ?? legacy;
+    if (!found) {
       const script = document.createElement("script");
-      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+      script.src = TURNSTILE_SRC;
       script.async = true;
       script.defer = true;
       script.onload = renderWidget;
       document.head.appendChild(script);
-    } else if (existing.dataset.loaded === "true") {
+    } else if (found.dataset.loaded === "true") {
       renderWidget();
     } else {
-      existing.addEventListener("load", renderWidget, { once: true });
+      found.addEventListener("load", renderWidget, { once: true });
     }
 
     // Mark loaded for future mounts
     const markLoaded = () => {
-      const s = document.querySelector<HTMLScriptElement>(
-        'script[src="https://challenges.cloudflare.com/turnstile/v0/api.js"]',
-      );
+      const s =
+        document.querySelector<HTMLScriptElement>(`script[src="${TURNSTILE_SRC}"]`) ??
+        document.querySelector<HTMLScriptElement>(
+          'script[src="https://challenges.cloudflare.com/turnstile/v0/api.js"]',
+        );
       if (s) s.dataset.loaded = "true";
     };
     window.addEventListener("load", markLoaded, { once: true });
@@ -116,7 +154,7 @@ export function TurnstileWidget({ siteKey, onVerify, onExpire, onError, theme = 
         widgetIdRef.current = null;
       }
     };
-  }, [siteKey, theme]);
+  }, [siteKey, theme, action, widgetIdRef]);
 
   if (!siteKey) return null;
 
