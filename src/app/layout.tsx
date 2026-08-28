@@ -30,7 +30,7 @@ const cormorant = Cormorant_Garamond({
   style: ["normal", "italic"],
   variable: "--font-cormorant",
   display: "swap",
-  preload: true,
+  preload: false,
 });
 
 const dmSans = DM_Sans({
@@ -38,7 +38,7 @@ const dmSans = DM_Sans({
   weight: ["400", "500", "700"],
   variable: "--font-dm-sans",
   display: "swap",
-  preload: true,
+  preload: false,
 });
 
 const spaceMono = Space_Mono({
