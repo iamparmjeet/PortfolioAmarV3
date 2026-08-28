@@ -18,6 +18,7 @@ export interface ActionReel {
   id: string;
   mediaUrl: string;
   posterUrl: string;
+  /** Tiny blur placeholder — empty until R2 has blur-thumbnail.webp for these assets. */
   blurUrl: string;
 }
 
@@ -25,7 +26,10 @@ export const actionReels: ActionReel[] = [1, 2, 3, 4].map((n) => ({
   id: `amar-in-action-${n}`,
   mediaUrl: `${CDN_URL}/assets/Videos/amar-in-action/${n}/master.m3u8`,
   posterUrl: `${CDN_URL}/assets/Videos/amar-in-action/${n}/master.webp`,
-  blurUrl: `${CDN_URL}/assets/Videos/amar-in-action/${n}/blur-thumbnail.webp`,
+  // blur-thumbnail.webp not yet generated for amar-in-action assets on R2
+  // (verified 404 for /1–/4); leave empty so ReelCard skips the blur layer
+  // instead of hitting /_next/image?url=…/blur-thumbnail.webp → 404.
+  blurUrl: "",
 }));
 
 export const brand = {

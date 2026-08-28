@@ -45,7 +45,7 @@ export function ReelCard({ reel, label, className }: ReelCardProps) {
         />
       ) : (
         <>
-          {!blurFailed && (
+          {reel.blurUrl && !blurFailed && (
             <Image
               src={reel.blurUrl}
               alt=""
