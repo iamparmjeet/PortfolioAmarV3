@@ -1,6 +1,7 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans, Space_Mono } from "next/font/google";
+import Script from "next/script";
 import { AmarChat } from "@/components/chat/AmarChat";
 import { CustomCursor } from "@/components/layout/CustomCursor";
 import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
@@ -104,6 +105,16 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <AmarChat />
         </ThemeProvider>
         <Analytics />
+        <Script
+          defer
+          src="https://umami.parmjeetmishra.com/script.js"
+          data-website-id="9df9d647-28aa-4de4-8055-cac92f2b756e"
+        />
+        <Script
+          defer
+          src="https://umami.parmjeetmishra.com/recorder.js"
+          data-website-id="9df9d647-28aa-4de4-8055-cac92f2b756e"
+        />
       </body>
     </html>
   );
