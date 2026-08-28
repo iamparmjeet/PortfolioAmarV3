@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="px-(--pad-x) pb-(--section-pad) pt-36">
-      <div className="mx-auto max-w-[1200px]">
+    <main className="pb-(--section-pad) pt-36">
+      <div className="mx-auto max-w-295 px-8">
         <p className="mb-3 font-mono text-[10px] tracking-[0.18em] text-accent">
           SCENE 01 — A NEW PROJECT BEGINS
         </p>

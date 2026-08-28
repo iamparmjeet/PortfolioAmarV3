@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 export default function JournalPage() {
   return (
-    <main className="px-(--pad-x) pb-(--section-pad) pt-36">
-      <div className="mx-auto max-w-[1200px]">
+    <main className="pb-(--section-pad) pt-36">
+      <div className="mx-auto max-w-295 px-8">
         <p className="eyebrow mb-7">
           <span className="eyebrow-dot" />
           Journal · Writing on craft &amp; business

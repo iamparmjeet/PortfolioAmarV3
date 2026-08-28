@@ -5,8 +5,8 @@ import { allPortfolioItems, homeItems } from "@/lib/portfolio-data";
 
 export function FeaturedWork() {
   return (
-    <section className="px-(--pad-x) py-(--section-pad)">
-      <div className="mx-auto max-w-[1680px]">
+    <section className="py-(--section-pad)">
+      <div className="mx-auto max-w-295 px-8">
         <div className="mb-14 flex flex-wrap items-end justify-between gap-6">
           <div>
             <p className="eyebrow mb-4">

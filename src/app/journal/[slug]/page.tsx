@@ -37,8 +37,8 @@ export default async function JournalPostPage({ params }: PageProps) {
   const next = journalPosts[(index + 1) % journalPosts.length];
 
   return (
-    <main className="px-(--pad-x) pb-(--section-pad) pt-36">
-      <article className="mx-auto max-w-[760px]">
+    <main className="pb-(--section-pad) pt-36">
+      <article className="mx-auto max-w-[760px] px-8">
         <nav className="mb-10 flex items-center gap-3 font-mono text-[11px] tracking-[0.14em] text-mute">
           <Link href="/journal" className="transition-colors hover:text-bone">
             JOURNAL

@@ -25,13 +25,13 @@ const courseJsonLd = {
 
 export default function LearnPage() {
   return (
-    <main className="px-(--pad-x) pb-(--section-pad) pt-36">
+    <main className="pb-(--section-pad) pt-36">
       <script
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD, no user input
         dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
       />
-      <div className="mx-auto max-w-[1200px]">
+      <div className="mx-auto max-w-295 px-8">
         {/* Hero */}
         <p className="eyebrow mb-7">
           <span className="eyebrow-dot" />

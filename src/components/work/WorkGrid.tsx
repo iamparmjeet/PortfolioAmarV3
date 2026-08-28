@@ -102,7 +102,7 @@ function WorkGridInner() {
       </div>
 
       {/* Category chips for the active mode */}
-      <div className="sticky top-[57px] z-20 -mx-(--pad-x) border-b border-hairline bg-ink/90 px-(--pad-x) py-4 backdrop-blur-xl">
+      <div className="sticky top-[57px] z-20 -mx-8 border-b border-hairline bg-ink/90 px-8 py-4 backdrop-blur-xl">
         <div className="flex flex-wrap gap-1.5">
           {activeFilters.map((cat) => (
             <button

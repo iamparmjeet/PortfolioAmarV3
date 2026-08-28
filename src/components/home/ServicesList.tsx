@@ -3,8 +3,8 @@ import { services } from "@/lib/data";
 
 export function ServicesList() {
   return (
-    <section className="border-t border-hairline bg-surface px-(--pad-x) py-(--section-pad)">
-      <div className="mx-auto max-w-[1680px]">
+    <section className="border-t border-hairline bg-surface py-(--section-pad)">
+      <div className="mx-auto max-w-295 px-8">
         <div className="mb-14">
           <p className="eyebrow mb-4">
             <span className="eyebrow-dot" />

@@ -22,10 +22,11 @@ export function Hero() {
   };
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: ambient cursor glow tracking on hero container
     <section
       ref={sectionRef}
       onMouseMove={onMouseMove}
-      className="relative flex min-h-screen flex-col overflow-hidden px-(--pad-x) pb-14 pt-32"
+      className="relative flex min-h-screen flex-col overflow-hidden pb-14 pt-32"
     >
       {/* Mouse-follow gold glow (Design A) */}
       <div
@@ -44,15 +45,12 @@ export function Hero() {
         Amar.
       </p>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1680px] flex-1 flex-col justify-center">
+      <div className="relative z-10 mx-auto flex w-full max-w-295 flex-1 flex-col justify-center px-8">
         <Reveal>
-          <div className="mb-12 flex flex-wrap items-center justify-between gap-4">
+          <div className="mb-12 flex flex-wrap items-center gap-4">
             <p className="eyebrow">
               <span className="eyebrow-dot" />
               Available for projects · {brand.location}
-            </p>
-            <p className="hidden font-mono text-[11px] tracking-[0.16em] text-mute sm:block">
-              N 30.9010° E 75.8573° · PORTFOLIO V4
             </p>
           </div>
         </Reveal>
@@ -128,7 +126,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto mt-14 flex w-full max-w-[1680px] flex-wrap items-center justify-between gap-3.5">
+      <div className="relative z-10 mx-auto mt-14 flex w-full max-w-295 flex-wrap items-center justify-between gap-3.5 px-8">
         <p className="animate-bounce font-mono text-[10px] tracking-[0.2em] text-mute">
           SCROLL TO ENTER ↓
         </p>

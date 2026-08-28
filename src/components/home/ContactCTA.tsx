@@ -3,8 +3,8 @@ import { Reveal } from "@/components/motion/Reveal";
 
 export function ContactCTA() {
   return (
-    <section className="relative overflow-hidden border-t border-hairline px-(--pad-x) py-(--section-pad) text-center">
-      <div className="relative z-10 mx-auto max-w-[1100px]">
+    <section className="relative overflow-hidden border-t border-hairline py-(--section-pad) text-center">
+      <div className="relative z-10 mx-auto max-w-295 px-8">
         <Reveal>
           <p className="eyebrow mb-6 justify-center">
             <span className="eyebrow-dot" />

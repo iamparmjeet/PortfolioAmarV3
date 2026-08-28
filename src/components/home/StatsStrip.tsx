@@ -6,7 +6,7 @@ import { siteStats } from "@/lib/portfolio-data";
 export function StatsStrip() {
   return (
     <section className="border-b border-hairline bg-surface">
-      <div className="mx-auto grid max-w-[1680px] grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-295 grid-cols-2 px-8 lg:grid-cols-4">
         {siteStats.map((stat, i) => (
           <Reveal key={stat.label} delay={i * 0.1}>
             <div className="group flex flex-col gap-2.5 border-r border-hairline px-8 py-14 transition-colors duration-500 last:border-r-0 hover:bg-accent-soft/40">

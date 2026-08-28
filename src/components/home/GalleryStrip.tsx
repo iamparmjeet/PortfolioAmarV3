@@ -34,7 +34,7 @@ export function GalleryStrip() {
 
   return (
     <section className="overflow-hidden border-t border-hairline py-(--section-pad)">
-      <div className="mx-auto mb-8 flex max-w-[1680px] items-end justify-between px-(--pad-x)">
+      <div className="mx-auto mb-8 flex max-w-295 items-end justify-between px-8">
         <Reveal>
           <p className="eyebrow">
             <span className="eyebrow-dot" />
@@ -54,7 +54,7 @@ export function GalleryStrip() {
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
-        className="hgallery-track flex cursor-grab gap-3.5 overflow-x-auto px-(--pad-x) active:cursor-grabbing"
+        className="hgallery-track mx-auto flex max-w-295 cursor-grab gap-3.5 overflow-x-auto px-8 active:cursor-grabbing"
       >
         {stripImages.map((img) => (
           <div

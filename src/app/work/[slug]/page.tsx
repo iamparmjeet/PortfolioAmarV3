@@ -87,8 +87,8 @@ export default async function CaseStudyPage({ params }: PageProps) {
         />
       )}
       {/* Screenplay-format opening (Design C signature) */}
-      <section className="px-(--pad-x)">
-        <div className="mx-auto max-w-[1200px]">
+      <section>
+        <div className="mx-auto max-w-295 px-8">
           <nav className="mb-8 flex items-center gap-3 font-mono text-[11px] tracking-[0.14em] text-mute">
             <Link href="/work" className="transition-colors hover:text-bone">
               WORK
@@ -125,8 +125,8 @@ export default async function CaseStudyPage({ params }: PageProps) {
       </section>
 
       {/* The film itself */}
-      <section className="px-(--pad-x) pb-(--section-pad)">
-        <div className="mx-auto max-w-[1200px]">
+      <section className="pb-(--section-pad)">
+        <div className="mx-auto max-w-295 px-8">
           {item.mediaUrl ? (
             // Vertical reel format — centered like an Instagram embed
             <div className="mx-auto w-full max-w-[420px] overflow-hidden rounded-xl border border-hairline">
@@ -164,7 +164,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* Results strip — renders only when real numbers exist */}
       {item.results && item.results.length > 0 && (
         <section className="bg-accent">
-          <div className="mx-auto grid max-w-[1200px] grid-cols-2 md:grid-cols-4">
+          <div className="mx-auto grid max-w-295 grid-cols-2 px-8 md:grid-cols-4">
             {item.results.map((result) => (
               <div key={result.label} className="border-r border-ink/10 px-7 py-7 last:border-r-0">
                 <p className="display text-[clamp(28px,4vw,52px)] font-semibold text-ink">
@@ -180,8 +180,8 @@ export default async function CaseStudyPage({ params }: PageProps) {
       )}
 
       {/* Brief + Acts — case-study narrative when written */}
-      <section className="px-(--pad-x) py-(--section-pad)">
-        <div className="mx-auto max-w-[1200px]">
+      <section className="py-(--section-pad)">
+        <div className="mx-auto max-w-295 px-8">
           {item.brief ? (
             <Reveal>
               <div className="mb-12 grid grid-cols-1 gap-6 border-b border-hairline pb-12 md:grid-cols-[140px_1fr] md:gap-10">
