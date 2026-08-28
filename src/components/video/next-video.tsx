@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Video from "next-video/player";
 
 import { cn } from "@/lib/utils";

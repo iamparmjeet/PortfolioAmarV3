@@ -46,18 +46,19 @@ export function ShowreelModal() {
       </button>
 
       {open && (
-        // biome-ignore lint/a11y/noStaticElementInteractions: backdrop click-to-close, with Escape + button alternatives
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/90 p-5 backdrop-blur-md"
-          onClick={() => {
-            setOpen(false);
-            stopAll();
-          }}
-        >
-          {/* biome-ignore lint/a11y/noStaticElementInteractions: stops backdrop close inside player */}
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-5">
+          {/* Backdrop button for keyboard & click dismiss */}
+          <button
+            type="button"
+            aria-label="Close showreel modal backdrop"
+            className="absolute inset-0 h-full w-full bg-ink/90 backdrop-blur-md cursor-default"
+            onClick={() => {
+              setOpen(false);
+              stopAll();
+            }}
+          />
           <div
-            className="w-full max-w-[420px]"
-            onClick={(e) => e.stopPropagation()}
+            className="relative z-10 w-full max-w-[420px]"
             role="dialog"
             aria-modal="true"
             aria-label="Showreel"
