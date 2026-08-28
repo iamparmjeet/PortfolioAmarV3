@@ -65,7 +65,10 @@ export const categories: Category[] = [
   { id: "sports", name: "Sports" },
 ];
 
-type RawItem = Omit<PortfolioItem, "id" | "slug" | "thumbnail" | "posterUrl" | "blurUrl" | "galleryVideos"> & {
+type RawItem = Omit<
+  PortfolioItem,
+  "id" | "slug" | "thumbnail" | "posterUrl" | "blurUrl" | "galleryVideos"
+> & {
   /** HLS urls of additional project films — posters derived by convention. */
   galleryVideoUrls?: string[];
 };
