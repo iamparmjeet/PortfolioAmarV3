@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
   }
 
   const result = streamText({
-    model: openrouter("google/gemini-2.0-flash-001"),
+    model: openrouter("google/gemini-2.5-flash"),
     system: systemPrompt,
     messages: messages.slice(-20),
     maxOutputTokens: 400,
