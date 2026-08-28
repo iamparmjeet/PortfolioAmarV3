@@ -16,6 +16,7 @@ Production-grade Next.js 16 App Router portfolio, synthesized from three design 
 | Contact | **A** + **C** | Serif underline fields; Watermark success state; WhatsApp secondary CTA |
 | Footer | **A** | Giant `Amar.` wordmark, 4-col grid |
 | Signature element | **C** | Screenplay case studies: `FADE IN:` → `INT.` slugline → Act I/II/III → `FADE OUT.` |
+| Layout shell | **portfolio-parm** | Primary page content uses a centered `max-w-295` (1180px) container with `px-8`; ticker remains full bleed |
 
 All 26 portfolio items, ~38 stills, and social links (Instagram, YouTube, Fiverr, LinkedIn) come from real `data.ts` / `portfolio-data.ts`. No fake testimonials; stats derived live from data.
 
