@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Video from "next-video/player";
 
 import { cn } from "@/lib/utils";
@@ -9,11 +8,7 @@ type VideoProps = {
   className?: string;
 };
 
-export default function NextVideo({
-  href,
-  thumbnail,
-  className,
-}: VideoProps) {
+export default function NextVideo({ href, thumbnail, className }: VideoProps) {
   return (
     <div
       className={cn(
@@ -22,20 +17,19 @@ export default function NextVideo({
       )}
     >
       <Video
-				src={href}
-				poster={thumbnail}
-				// preload="metadata"
-				className="portrait-video-fit absolute inset-0 w-full h-full"
-				style={{
+        src={href}
+        poster={thumbnail}
+        // preload="metadata"
+        className="portrait-video-fit absolute inset-0 w-full h-full"
+        style={{
           display: "block",
           width: "100%",
           height: "100%",
         }}
-				controls={true}
+        controls={true}
         muted={false}
         autoPlay={false}
-      >
-      </Video>
+      ></Video>
     </div>
   );
 }
