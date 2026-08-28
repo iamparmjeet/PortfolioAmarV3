@@ -1,46 +1,176 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { z } from "zod";
 
-// Naive in-memory rate limit: 3 submissions per IP per 10 minutes.
-// Resets on cold start (fine on serverless — it only needs to slow bots
-// within a warm instance; the honeypot catches the rest).
+// ── In-memory rate limit: 3 / IP / 10 min + global safeguards ──
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_PER_WINDOW = 3;
+const MAX_TRACKED_IPS = 500;
 const submissions = new Map<string, number[]>();
 
-function isRateLimited(ip: string): boolean {
+function isRateLimited(ip: string): { limited: boolean; retryAfterMs: number } {
   const now = Date.now();
+
+  // Periodic cleanup: once every ~50 requests, prune stale IPs and cap size
+  if (submissions.size > MAX_TRACKED_IPS || Math.random() < 0.02) {
+    for (const [key, stamps] of submissions) {
+      const fresh = stamps.filter((t) => now - t < WINDOW_MS);
+      if (fresh.length === 0) submissions.delete(key);
+      else submissions.set(key, fresh);
+    }
+    // Hard cap — drop oldest entries if still over limit
+    if (submissions.size > MAX_TRACKED_IPS) {
+      const keys = Array.from(submissions.keys());
+      for (let i = 0; i < keys.length - MAX_TRACKED_IPS; i++) {
+        submissions.delete(keys[i]);
+      }
+    }
+  }
+
   const recent = (submissions.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
   submissions.set(ip, recent);
-  if (recent.length >= MAX_PER_WINDOW) return true;
+
+  if (recent.length >= MAX_PER_WINDOW) {
+    const oldest = recent[0];
+    const retryAfterMs = WINDOW_MS - (now - oldest);
+    return { limited: true, retryAfterMs };
+  }
+
   recent.push(now);
-  return false;
+  return { limited: false, retryAfterMs: 0 };
+}
+
+// ── Timing gate: reject instant submits (bots) ──
+const MIN_SUBMIT_MS = 2500;
+
+// ── Content heuristics ──
+const MAX_LINKS = 3;
+
+function countLinks(text: string): number {
+  const matches = text.match(/https?:\/\/|www\./gi);
+  return matches ? matches.length : 0;
+}
+
+// ── Zod schema — strict server-side validation ──
+const contactSchema = z.object({
+  name: z.string().trim().min(2, "Name too short").max(100, "Name too long"),
+  email: z.string().trim().toLowerCase().email("Invalid email").max(254),
+  message: z.string().trim().min(10, "Message too short").max(5000, "Message too long"),
+  website: z.string().optional(), // honeypot
+  projectType: z.string().trim().max(50).optional(),
+  budget: z.string().trim().max(50).optional(),
+  timeline: z.string().trim().max(50).optional(),
+  turnstileToken: z.string().optional(),
+  startedAt: z.number().optional(), // client timestamp for timing check
+});
+
+// ── Turnstile server verification (Cloudflare — FREE, unlimited) ──
+async function verifyTurnstile(token: string, ip: string): Promise<boolean> {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) return true; // not configured -> skip (dev mode)
+  if (!token) return false;
+
+  try {
+    const formData = new FormData();
+    formData.append("secret", secret);
+    formData.append("response", token);
+    if (ip && ip !== "unknown") formData.append("remoteip", ip);
+
+    const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      body: formData,
+    });
+    const data = (await res.json()) as { success: boolean; "error-codes"?: string[] };
+    if (!data.success) {
+      console.warn("[contact] Turnstile verify failed", data["error-codes"]);
+    }
+    return data.success;
+  } catch (err) {
+    console.error("[contact] Turnstile verify error", err);
+    return false;
+  }
 }
 
 export async function POST(req: NextRequest) {
-  const { name, email, message, website, projectType, budget, timeline } = (await req.json()) as {
-    name?: string;
-    email?: string;
-    message?: string;
-    website?: string;
-    projectType?: string;
-    budget?: string;
-    timeline?: string;
-  };
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  }
 
-  // Honeypot: the "website" field is invisible to humans. Bots fill it.
-  // Return a fake success so they don't adapt.
-  if (website) {
+  const parsed = contactSchema.safeParse(body);
+  if (!parsed.success) {
+    const first = parsed.error.issues[0];
+    return NextResponse.json({ error: first.message, field: first.path[0] }, { status: 400 });
+  }
+
+  const {
+    name,
+    email,
+    message,
+    website,
+    projectType,
+    budget,
+    timeline,
+    turnstileToken,
+    startedAt,
+  } = parsed.data;
+
+  // 1. Honeypot — invisible "website" field. Return fake success so bots don't adapt.
+  if (website && website.trim() !== "") {
     return NextResponse.json({ ok: true });
   }
 
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
-  if (isRateLimited(ip)) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+
+  // 2. Timing gate — reject submissions faster than a human could type
+  if (typeof startedAt === "number" && Number.isFinite(startedAt)) {
+    const elapsed = Date.now() - startedAt;
+    // Allow slightly negative drift (clock skew) but catch instant bots
+    if (elapsed >= 0 && elapsed < MIN_SUBMIT_MS) {
+      return NextResponse.json(
+        { error: "Please take a moment to review your message before sending." },
+        { status: 400 },
+      );
+    }
+    // Reject absurdly old timestamps (tampering) — 1 hour
+    if (elapsed > 60 * 60 * 1000) {
+      return NextResponse.json(
+        { error: "Session expired, please refresh and try again." },
+        { status: 400 },
+      );
+    }
   }
 
-  if (!name || !email || !message) {
-    return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+  // 3. Content heuristics — link spam
+  if (countLinks(message) > MAX_LINKS) {
+    return NextResponse.json(
+      { error: "Too many links in message — please remove some URLs." },
+      { status: 400 },
+    );
+  }
+
+  // 4. Turnstile verification (FREE Cloudflare — https://dash.cloudflare.com/?to=/:account/turnstile)
+  // Only enforced when TURNSTILE_SECRET_KEY is set. Absence = dev/bypass mode.
+  if (process.env.TURNSTILE_SECRET_KEY) {
+    const ok = await verifyTurnstile(turnstileToken ?? "", ip);
+    if (!ok) {
+      return NextResponse.json(
+        { error: "Spam check failed — please refresh and try again." },
+        { status: 403 },
+      );
+    }
+  }
+
+  // 5. Hardened in-memory rate limit (per-IP, with cleanup + Retry-After)
+  const { limited, retryAfterMs } = isRateLimited(ip);
+  if (limited) {
+    const retryAfterSec = Math.ceil(retryAfterMs / 1000);
+    return NextResponse.json(
+      { error: "Too many requests — please try again later." },
+      { status: 429, headers: { "Retry-After": String(retryAfterSec) } },
+    );
   }
 
   if (!process.env.RESEND_API_KEY || !process.env.CONTACT_EMAIL) {
