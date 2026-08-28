@@ -1,74 +1,253 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
-@theme {
-	--font-serif: var(--font-dm-serif), serif;
-	--font-sans: var(--font-inter), sans-serif;
+:root {
+  /* ── Color tokens — derived from the Phase 1 audit ──
+     Background/surface scale from Design A (amarv2): the warmest, deepest
+     near-black ink scale of the three designs (#0B0908 → #1A1714), giving
+     real shadow depth instead of flat black.
+     Accent from Design A: muted gold #C9943A — the most restrained,
+     film-grade accent (Design B's sand was close; Design C's green is off-brief). */
+  --color-bg: #0b0908; /* Design A --ink: warm near-black base */
+  --color-surface: #121110; /* Design A --ink-2: section surfaces */
+  --color-surface-elevated: #1a1714; /* Design A --ink-3: cards, modals */
+  --color-accent: #c9943a; /* Design A --gold: muted film-grade gold */
+  --color-accent-dim: #e5b25c; /* Design A --gold-bright: hover state */
+  --color-accent-soft: rgba(201, 148, 58, 0.12); /* Design A --gold-soft */
+  --color-accent-line: rgba(201, 148, 58, 0.28); /* Design A --gold-line */
+  --color-text-primary: #ede8df; /* Design A --bone: warm near-white */
+  --color-text-secondary: #b8b0a0; /* Design A --bone-dim */
+  --color-text-muted: #7a7060; /* Design A --mute: subtle labels */
+  --color-border: rgba(237, 232, 223, 0.08); /* Design A --line: hairlines */
+  --color-border-strong: rgba(237, 232, 223, 0.16); /* Design A --line-strong */
+
+  /* ── Typography — Cormorant Garamond from Design C (the most intentional
+     serif use: light 300 weight at film-credit scale); DM Sans from
+     Designs B/C (cleanest readability at 14–16px); Space Mono from
+     Design C for eyebrows/labels (bumped up from its 7–8px sizes).
+     The --font-* vars referenced here are injected by next/font in layout.tsx. */
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-body: var(--font-dm-sans), "DM Sans", system-ui, sans-serif;
+  --font-mono: var(--font-space-mono), "Space Mono", ui-monospace, monospace;
+
+  /* ── Radius — 2px from Design C's tight contact-sheet feel for chips/buttons,
+     6px/14px from Design A for cards and modals. */
+  --radius-sm: 2px;
+  --radius-md: 6px;
+  --radius-lg: 14px;
+
+  /* ── Motion — eased curves shared across Designs A and B. */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-base: 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-slow: 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Layout rhythm from Design A */
+  --pad-x: clamp(20px, 4vw, 64px);
+  --section-pad: clamp(80px, 11vh, 160px);
 }
 
 @theme inline {
-	--animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
+  --color-ink: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-surface-elevated: var(--color-surface-elevated);
+  --color-accent: var(--color-accent);
+  --color-accent-dim: var(--color-accent-dim);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-accent-line: var(--color-accent-line);
+  --color-bone: var(--color-text-primary);
+  --color-bone-dim: var(--color-text-secondary);
+  --color-mute: var(--color-text-muted);
+  --color-hairline: var(--color-border);
+  --color-hairline-strong: var(--color-border-strong);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
 }
 
-@layer base {
-	body {
-		@apply font-sans;
-	}
-
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		@apply font-serif text-gray-300;
-	}
-
-	p {
-		@apply font-sans text-gray-300;
-	}
+html {
+  scroll-behavior: smooth;
 }
 
-@keyframes spotlight {
-	0% {
-		opacity: 0;
-		transform: translate(-72%, -62%) scale(0.5);
-	}
-
-	100% {
-		opacity: 1;
-		transform: translate(-50%, -40%) scale(1);
-	}
+/* Hide default cursor on pointer devices — CustomCursor renders instead. */
+@media (hover: hover) {
+  *,
+  *:hover {
+    cursor: none;
+  }
 }
 
+body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* ── Reduced motion: stop decorative animation, keep content visible ── */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  .eyebrow-dot {
+    animation: none;
+  }
+  .animate-bounce {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Film grain overlay (Designs A + B) ── */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* ── Shared editorial primitives ── */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex-shrink: 0;
+  animation: pulse 2.5s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.4);
+  }
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.display em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+/* ── Marquee ticker (Design C) ── */
 @keyframes marquee {
-	from {
-		transform: translateX(0%);
-	}
-
-	to {
-		transform: translateX(var(--move-distance));
-	}
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
-@theme inline {
-	--animate-marquee: marquee var(--duration) linear infinite;
+.marquee-track {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: marquee 32s linear infinite;
 }
 
-.portrait-video-fit {
-	/* These are CSS custom properties read by media-controller internals */
-	--media-object-fit: cover;
-	--media-object-position: center;
-
-	/* Force the web component itself to be block-level immediately */
-	display: block !important;
-	width: 100% !important;
-	height: 100% !important;
+.marquee-track:hover {
+  animation-play-state: paused;
 }
 
-/* Target the actual <video> inside the shadow DOM via the exposed custom property */
-.portrait-video-fit::part(media) {
-	object-fit: cover;
-	width: 100%;
-	height: 100%;
+/* ── Horizontal gallery (Design B) ── */
+.hgallery-track {
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hgallery-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Filmic image grade from Design B */
+.film-grade {
+  filter: saturate(0.75) contrast(1.08);
+  transition:
+    filter 0.6s ease,
+    transform 0.9s var(--ease-out-expo);
+}
+
+.group:hover .film-grade {
+  filter: saturate(0.95) contrast(1.05);
+  transform: scale(1.05);
+}
+
+/* ── Contact form fields (Design A) ── */
+.field {
+  display: block;
+  position: relative;
+  padding: 22px 0 12px;
+  border-bottom: 1px solid var(--color-border-strong);
+  transition: border-color var(--transition-base);
+}
+
+.field:focus-within {
+  border-color: var(--color-accent);
+}
+
+.field > span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--color-text-primary);
+  resize: none;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.55;
 }
