@@ -9,7 +9,16 @@ import { clients, siteStats } from "@/lib/portfolio-data";
 
 export const metadata: Metadata = {
   title: "About — Amarjeet Mishra",
-  description: "Video editor, filmmaker, and teacher based in Mumbai.",
+  description: "Video editor, filmmaker, and teacher based in Ludhiana, Punjab.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About — Amarjeet Mishra",
+    description:
+      "Video editor, filmmaker, and teacher based in Ludhiana, Punjab. Storytelling, brand films, and media craft.",
+    url: "/about",
+  },
 };
 
 export default function AboutPage() {

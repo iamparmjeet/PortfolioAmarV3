@@ -677,19 +677,23 @@ body {
 .field {
   display: block;
   position: relative;
-  padding: 22px 0 12px;
-  border-bottom: 1px solid var(--color-border-strong);
-  transition: border-color var(--transition-base);
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  transition:
+    border-color var(--transition-base),
+    background-color var(--transition-base);
 }
 
 .field:focus-within {
   border-color: var(--color-accent);
+  background: var(--color-surface-elevated);
 }
 
 .field > span {
-  position: absolute;
-  top: 0;
-  left: 0;
+  display: block;
+  margin-bottom: 6px;
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.15em;
@@ -704,7 +708,7 @@ body {
   border: none;
   outline: none;
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: 18px;
   color: var(--color-text-primary);
   resize: none;
 }

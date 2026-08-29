@@ -8,6 +8,15 @@ export const metadata: Metadata = {
   title: "Learn — learnsimm by Amarjeet Mishra",
   description:
     "From learning to earning — video editing, cinematography, and the business of filmmaking at learnsimm, Punjab's premier media institute.",
+  alternates: {
+    canonical: "/learn",
+  },
+  openGraph: {
+    title: "Learn Video Editing & Filmmaking — learnsimm",
+    description:
+      "Hands-on creative software, camera production, and filmmaking business education in Ludhiana.",
+    url: "/learn",
+  },
 };
 
 const courseJsonLd = {

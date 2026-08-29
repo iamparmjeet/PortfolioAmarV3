@@ -6,6 +6,14 @@ import { allPortfolioItems } from "@/lib/portfolio-data";
 export const metadata: Metadata = {
   title: "Work — Amarjeet Mishra",
   description: "Brand films, reels, and visual stories for real clients across India.",
+  alternates: {
+    canonical: "/work",
+  },
+  openGraph: {
+    title: "Selected Work — Amarjeet Mishra",
+    description: "Brand films, commercial reels, podcasts, and visual stories.",
+    url: "/work",
+  },
 };
 
 export default function WorkPage() {

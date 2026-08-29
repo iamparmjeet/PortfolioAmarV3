@@ -12,7 +12,7 @@ declare global {
           action?: string;
           callback?: (token: string) => void;
           "expired-callback"?: () => void;
-          "error-callback"?: (code: string | number) => boolean | void;
+          "error-callback"?: (code: string | number) => boolean | undefined;
           "timeout-callback"?: () => void;
           theme?: "light" | "dark" | "auto";
           size?: "normal" | "compact";

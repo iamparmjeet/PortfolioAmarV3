@@ -6,25 +6,21 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: "/api/",
+        disallow: ["/api/"],
       },
-      // AI crawlers get explicit allow so they index the portfolio
+      // Explicit rules for search engines and AI assistants to index portfolio & llms.txt
       {
-        userAgent: "GPTBot",
+        userAgent: ["Googlebot", "Bingbot", "Applebot"],
         allow: "/",
-        disallow: "/api/",
-      },
-      {
-        userAgent: "ClaudeBot",
-        allow: "/",
-        disallow: "/api/",
+        disallow: ["/api/"],
       },
       {
-        userAgent: "PerplexityBot",
-        allow: "/",
-        disallow: "/api/",
+        userAgent: ["GPTBot", "ClaudeBot", "PerplexityBot", "CCBot"],
+        allow: ["/", "/llms.txt"],
+        disallow: ["/api/"],
       },
     ],
     sitemap: "https://amarjeetmishra.com/sitemap.xml",
+    host: "https://amarjeetmishra.com",
   };
 }

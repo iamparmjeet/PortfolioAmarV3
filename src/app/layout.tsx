@@ -58,6 +58,29 @@ export const metadata: Metadata = {
   },
   description,
   metadataBase: new URL("https://amarjeetmishra.com"),
+  alternates: {
+    canonical: "/",
+  },
+  keywords: [
+    "Amarjeet Mishra",
+    "Amar Editz",
+    "Video Editor Ludhiana",
+    "Video Editor Punjab",
+    "Filmmaker Ludhiana",
+    "Commercial Video Editor",
+    "Instagram Reels Editor",
+    "Podcast Video Editing",
+    "Learnsimm",
+    "Film Color Grading",
+  ],
+  authors: [{ name: brand.full, url: "https://amarjeetmishra.com" }],
+  creator: brand.full,
+  publisher: brand.full,
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },
@@ -69,13 +92,28 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
+    locale: "en_US",
+    url: "https://amarjeetmishra.com",
     siteName: "Amar Editz",
     title: `${brand.full} — ${brand.tagline}`,
     description,
-    images: [{ url: HeroImg, width: 1200, height: 1500, alt: `${brand.full} on set` }],
   },
   twitter: {
     card: "summary_large_image",
+    title: `${brand.full} — ${brand.tagline}`,
+    description,
+    creator: "@amareditz",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 

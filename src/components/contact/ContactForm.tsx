@@ -164,7 +164,7 @@ export function ContactForm() {
         className="absolute -left-[9999px] h-0 w-0 opacity-0"
       />
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div className="grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
         <label className="field">
           <span>Your name</span>
           <input
@@ -177,24 +177,28 @@ export function ContactForm() {
             maxLength={100}
           />
         </label>
-        <label className="field">
-          <span>Email</span>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@example.com"
-            required
-            aria-invalid={!emailValid}
-            className={!emailValid ? "text-red-400" : undefined}
-          />
-        </label>
+        <div className="flex flex-col">
+          <label className="field">
+            <span>Email</span>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              required
+              aria-invalid={!emailValid}
+              className={!emailValid ? "text-red-400" : undefined}
+            />
+          </label>
+          <div className="min-h-[20px] pt-1.5">
+            {!emailValid && (
+              <p className="font-mono text-[11px] text-red-400">
+                Enter a valid email (e.g. you@example.com)
+              </p>
+            )}
+          </div>
+        </div>
       </div>
-      {!emailValid && (
-        <p className=" -mt-4 font-mono text-[11px] text-red-400">
-          Enter a valid email (e.g. you@example.com)
-        </p>
-      )}
 
       {/* Lead qualification row */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -293,9 +297,9 @@ export function ContactForm() {
           />
           {isDomainError ? (
             <p className="mt-2 font-mono text-[10px] leading-relaxed text-amber-400">
-              Turnstile blocked (110200: Domain not authorized). Add{" "}
-              <code>localhost</code> and <code>127.0.0.1</code> in Cloudflare Dashboard → Turnstile →
-              widget <code>0x4AAAAAAEfo8bL0jz-tH5kM</code> → Hostname Management. For local dev you can
+              Turnstile blocked (110200: Domain not authorized). Add <code>localhost</code> and{" "}
+              <code>127.0.0.1</code> in Cloudflare Dashboard → Turnstile → widget{" "}
+              <code>0x4AAAAAAEfo8bL0jz-tH5kM</code> → Hostname Management. For local dev you can
               temporarily unset <code>TURNSTILE_SECRET</code> to bypass.
             </p>
           ) : (

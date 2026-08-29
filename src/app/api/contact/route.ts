@@ -63,7 +63,7 @@ const contactSchema = z.object({
   // Canonical Spin field + legacy: backend accepts both
   turnstileToken: z.string().optional(),
   "cf-turnstile-response": z.string().optional(),
-  "cf_turnstile_response": z.string().optional(),
+  cf_turnstile_response: z.string().optional(),
   startedAt: z.number().optional(), // client timestamp for timing check
 });
 
@@ -160,20 +160,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: first.message, field: first.path[0] }, { status: 400 });
   }
 
-  const {
-    name,
-    email,
-    message,
-    website,
-    projectType,
-    budget,
-    timeline,
-    startedAt,
-  } = parsed.data;
+  const { name, email, message, website, projectType, budget, timeline, startedAt } = parsed.data;
   // Canonical Spin token field + legacy fallbacks
   const turnstileToken =
     (parsed.data["cf-turnstile-response"] as string | undefined) ??
-    (parsed.data["cf_turnstile_response"] as string | undefined) ??
+    (parsed.data.cf_turnstile_response as string | undefined) ??
     parsed.data.turnstileToken ??
     "";
 

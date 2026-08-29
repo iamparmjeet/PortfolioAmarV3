@@ -8,6 +8,14 @@ import { actionReels, brand, socialLinks } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Contact — Amarjeet Mishra",
   description: "Start a project — brand films, reels, podcasts, and editorial shoots.",
+  alternates: {
+    canonical: "/contact",
+  },
+  openGraph: {
+    title: "Start a Project — Amarjeet Mishra",
+    description: "Commission a brand film, social reel campaign, or podcast production.",
+    url: "/contact",
+  },
 };
 
 export default function ContactPage() {

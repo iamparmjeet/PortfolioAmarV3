@@ -7,6 +7,15 @@ import { journalPosts } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Journal — Amarjeet Mishra",
   description: "Notes on editing craft, client work, and the business of filmmaking.",
+  alternates: {
+    canonical: "/journal",
+  },
+  openGraph: {
+    title: "Journal & Essays — Amarjeet Mishra",
+    description:
+      "Notes on editing craft, client work, pacing, color grading, and filmmaking business.",
+    url: "/journal",
+  },
 };
 
 export default function JournalPage() {
