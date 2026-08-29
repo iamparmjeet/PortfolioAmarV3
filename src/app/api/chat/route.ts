@@ -121,7 +121,8 @@ export async function POST(request: NextRequest) {
           const delta = chunk.choices[0]?.delta?.content;
           if (delta) {
             emitted = true;
-            controller.enqueue(encoder.encode(delta));
+            const clean = delta.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\.+/g, "$1");
+            controller.enqueue(encoder.encode(clean));
           }
         }
         if (!emitted) {

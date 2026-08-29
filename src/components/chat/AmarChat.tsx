@@ -68,6 +68,34 @@ function useChat() {
   return { messages, input, setInput, isLoading, error, sendMessage };
 }
 
+function LinkifiedText({ text }: { text: string }) {
+  // split on email, but keep delimiter
+  const re = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
+  const parts = text.split(re);
+  return (
+    <>
+      {parts.map((part, i) => {
+        // strip trailing punctuation that LLM attached to email
+        const m = part.match(/^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})([.,;:)!?]+)?$/);
+        if (!m) return <span key={i}>{part}</span>;
+        const email = m[1];
+        const trail = m[2] ?? "";
+        return (
+          <span key={i}>
+            <a
+              href={`mailto:${email}`}
+              className="underline decoration-accent underline-offset-2 hover:text-accent"
+            >
+              {email}
+            </a>
+            {trail}
+          </span>
+        );
+      })}
+    </>
+  );
+}
+
 export function AmarChat() {
   const [open, setOpen] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -101,7 +129,7 @@ export function AmarChat() {
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
       {open && (
         <div
-          className="flex h-[520px] w-[340px] flex-col overflow-hidden rounded-xl border border-hairline bg-surface shadow-[0_32px_80px_rgba(0,0,0,0.6)] backdrop-blur-md sm:w-[380px]"
+          className="flex h-130 w-85 flex-col overflow-hidden rounded-xl border border-hairline bg-surface shadow-[0_32px_80px_rgba(0,0,0,0.6)] backdrop-blur-md sm:w-95"
           role="dialog"
           aria-label="Chat with Amar AI"
         >
@@ -122,7 +150,7 @@ export function AmarChat() {
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close chat"
-              className="font-mono text-[11px] tracking-[0.1em] text-mute transition-colors hover:text-accent"
+              className="font-mono text-lg tracking-widest text-mute transition-colors hover:text-accent"
             >
               ✕
             </button>
@@ -165,7 +193,9 @@ export function AmarChat() {
                     m.role === "user" ? "bg-accent text-ink" : "bg-surface-elevated text-bone-dim",
                   )}
                 >
-                  {m.content || (
+                  {m.content ? (
+                    <LinkifiedText text={m.content} />
+                  ) : (
                     <span className="inline-flex gap-1">
                       {[0, 1, 2].map((i) => (
                         <span

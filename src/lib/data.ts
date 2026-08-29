@@ -38,6 +38,7 @@ export const brand = {
   tagline: "Video editor, filmmaker & teacher",
   location: "Ludhiana, Punjab",
   email: "hello@amarjeetmishra.com",
+  emailGmail: "amarjeetmishra008@gmail.com",
   // TODO: populate — real WhatsApp number in international format, e.g. "919812345678"
   whatsapp: "",
   // TEMPORARY TEST VALUE — using the amar-in-action reel so the modal can be tested.

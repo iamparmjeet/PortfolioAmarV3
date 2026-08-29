@@ -61,12 +61,20 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="mb-1.5 font-mono text-[9px] tracking-[0.14em] text-mute">EMAIL</p>
-                <a
-                  href={`mailto:${brand.email}`}
-                  className="font-display text-xl font-semibold text-accent transition-opacity hover:opacity-70"
-                >
-                  {brand.email}
-                </a>
+                <div className="flex flex-col gap-1">
+                  <a
+                    href={`mailto:${brand.email}`}
+                    className="font-display text-xl font-semibold text-accent transition-opacity hover:opacity-70"
+                  >
+                    {brand.email}
+                  </a>
+                  <a
+                    href={`mailto:${brand.emailGmail}`}
+                    className="font-display text-base font-medium text-bone-dim transition-opacity hover:text-accent hover:opacity-70"
+                  >
+                    {brand.emailGmail}
+                  </a>
+                </div>
               </div>
               <div>
                 <p className="mb-1.5 font-mono text-[9px] tracking-[0.14em] text-mute">LOCATION</p>
