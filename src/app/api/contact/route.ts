@@ -464,7 +464,7 @@ export async function POST(req: NextRequest) {
 
   // 1. Send notification to site owner
   const { error: ownerError } = await resend.emails.send({
-    from: "Portfolio Contact <onboarding@resend.dev>",
+    from: "Portfolio Contact <hello@amarjeetmishra.com>",
     to: process.env.CONTACT_EMAIL,
     subject: `New enquiry from ${name}${projectType ? ` [${projectType}]` : ""}`,
     text: plainText,
@@ -479,11 +479,12 @@ export async function POST(req: NextRequest) {
   // 2. Send confirmation auto-reply to the user (non-blocking for sandbox compatibility)
   try {
     await resend.emails.send({
-      from: "Amarjeet Mishra <onboarding@resend.dev>",
+      from: "Amarjeet Mishra <hello@amarjeetmishra.com>",
       to: email,
       subject: "Thank you for reaching out — Amar Editz",
       text: `Hi ${name},\n\nThank you for reaching out. I have received your enquiry and will get back to you within 24 hours.\n\nBest,\nAmarjeet Mishra\namarjeetmishra.com`,
       html: confirmationHtml,
+      replyTo: process.env.CONTACT_EMAIL,
     });
   } catch {
     // Sandbox or unverified domain may reject sending to non-owner email,
